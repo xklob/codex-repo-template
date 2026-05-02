@@ -31,6 +31,7 @@ The current repository is mostly documentation by design. Each root document has
 - `PLANS.md` defines the ExecPlan format and the rules for using execution plans on complex work.
 - `DESIGN.md` is the durable design-language reference for the product.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
+- `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
 
 The repository also reserves these top-level directories:
 
@@ -74,6 +75,7 @@ In practice, the first pass through the template usually looks like this:
 - describe the codebase shape and boundaries in `ARCHITECTURE.md`
 - add the initial toolchain and document its commands
 - implement the first thin slice of real functionality
+- confirm `.codex/config.toml` still matches the default Codex model you want contributors to use
 
 ## Recommended Bootstrap Workflow
 
@@ -107,6 +109,7 @@ To keep that working:
 - update `DESIGN.md` when stable design language changes
 - update `ARCHITECTURE.md` when structure, ownership, or invariants change
 - keep implementation work observable through tests, commands, or clear acceptance criteria
+- keep `.codex/config.toml` narrow and intentional; model-default changes should be reflected in the relevant control documents
 
 For larger changes, point agents at the relevant control documents and have them work from an ExecPlan rather than a vague prompt alone.
 
@@ -116,6 +119,8 @@ Use this layout unless the project has a strong reason to evolve beyond it:
 
 ```text
 .
+├── .codex/
+│   └── config.toml
 ├── AGENTS.md
 ├── ARCHITECTURE.md
 ├── DESIGN.md
@@ -136,7 +141,7 @@ Not every directory needs to exist on day one. Add them when the project needs t
 No language-specific toolchain is checked in yet. Until you add one, the lightweight repository checks are:
 
 - `git status` to inspect pending changes
-- `rg --files` to list the current file set
+- `rg --files --hidden -g '!.git/**'` to list the current file set, including project-scoped Codex configuration
 - `git log --oneline` to inspect commit-message style
 
 Once you introduce a real toolchain, replace this section with the canonical commands contributors should run.
@@ -151,6 +156,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 - Treat root-level `ALLCAPS.md` files as durable project guidance, not scratch notes.
 - Use ExecPlans for complex features and significant refactors.
 - Keep the repository easy for a new human or agent to understand without hidden context.
+- Keep the project-scoped Codex model default in `.codex/config.toml` unless a deliberate model migration updates the relevant docs at the same time.
 
 ## First Customizations Checklist
 
@@ -163,12 +169,13 @@ Before calling a project based on this template "ready," make sure you have done
 - documented the initial toolchain and test command
 - created the first `src/` and `tests/` modules
 - confirmed that `AGENTS.md` matches how you want coding agents to work in the repo
+- confirmed that `.codex/config.toml` pins the intended default Codex model
 
 ## Validation
 
 At template stage, validation is mostly structural:
 
-- `rg --files` should show the expected control documents and project directories
+- `rg --files --hidden -g '!.git/**'` should show the expected control documents, project directories, and `.codex/config.toml`
 - `git status` should clearly reflect documentation and code changes
 - once a toolchain is added, the documented test command should become the default proof that the repository is healthy
 

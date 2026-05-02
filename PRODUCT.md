@@ -48,6 +48,10 @@ Suggested maturity labels:
 
 If a small or medium feature lands without an ExecPlan, this section should usually still be updated if the change affects what a user can do.
 
+### Agent Runtime Defaults
+
+`Core`: The template includes a project-scoped Codex configuration file at `.codex/config.toml`. When a contributor uses Codex in a trusted checkout, Codex should use `gpt-5.5` as the default model for work in this repository.
+
 ## 4. Core Workflows
 
 Describe the end-to-end workflows that currently define the product.
@@ -59,6 +63,10 @@ For each workflow, explain:
 - where the workflow currently ends
 
 Focus on the workflows that are actually available now. If a workflow is partial, say so clearly.
+
+### Agent-Assisted Repository Work
+
+A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
 ## 5. Product Constraints and Known Limits
 
@@ -72,6 +80,8 @@ Examples:
 - assumes a small dataset or low request volume
 
 These are not implementation details for their own sake; include them only when they materially define the current product behavior or scope.
+
+Current Codex model defaults apply only to Codex environments that load trusted project-scoped `.codex/config.toml` files. They do not create an application runtime, API integration, model router, or test harness.
 
 ## 6. Non-Goals
 

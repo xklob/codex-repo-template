@@ -30,6 +30,7 @@ Suggested shape:
 - `src/[feature_or_domain]` - Contains the core business rules for ...
 - `src/[api_or_transport]` - Accepts external requests and translates them into domain operations.
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
+- `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
 - `tests/` - Mirrors `src/` and verifies ...
 - `assets/` - Stores static assets used by ...
 
@@ -98,6 +99,10 @@ Possible topics:
 
 Only include the concerns that materially shape the project.
 
+### Configuration
+
+Codex-specific defaults live in `.codex/config.toml`. Keep this file limited to project-scoped agent configuration; do not use it as an application configuration file once runtime code exists.
+
 ## How To Extend The System Safely
 
 Give a new contributor a short playbook for common changes.
@@ -107,6 +112,7 @@ Template prompts:
 - To add a new external integration, extend ...
 - To add a new page or screen, wire it through ...
 - To change shared data shapes, update ... and then validate ...
+- To change the default Codex model, update `.codex/config.toml` and the control documents that describe the agent workflow.
 
 If there are common mistakes, name them explicitly.
 

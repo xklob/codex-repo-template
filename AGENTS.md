@@ -26,6 +26,7 @@ If you introduce a new root-level `ALLCAPS.md` file, treat it as a new control d
 This repository is intentionally minimal at the moment. Keep runtime code in `src/`, mirror tests in `tests/`, keep static assets in `assets/`, and leave long-lived documentation in the repository root.
 
 When adding application code, keep the layout simple and predictable:
+- Keep project-scoped Codex configuration in `.codex/config.toml`. The current default model is `gpt-5.5`.
 - Put runtime code in a top-level `src/` directory.
 - Mirror tests under `tests/`.
 - Keep static assets in `assets/` if they are needed later.
@@ -35,7 +36,7 @@ When adding application code, keep the layout simple and predictable:
 There is no checked-in build or test toolchain yet. Until one is added, use lightweight repo checks:
 
 - `git status` shows pending changes before commit or review.
-- `rg --files` lists the current file set quickly.
+- `rg --files --hidden -g '!.git/**'` lists the current file set quickly, including `.codex/config.toml`.
 - `git log --oneline` shows the existing commit style.
 
 If you introduce a language toolchain, add its canonical commands to this section in the same change. Prefer a single documented entry point such as `make test`, `npm test`, or `pytest`.
