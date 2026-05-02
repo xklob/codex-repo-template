@@ -151,6 +151,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 
 - Keep runtime code in `src/`.
 - Mirror tests under `tests/`.
+- Add explanatory comments to source files: file-header purpose comments, non-trivial function summaries, and inline notes for non-obvious logic or constants.
 - Keep static assets in `assets/` when needed.
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
