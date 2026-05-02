@@ -48,6 +48,7 @@ Use consistent, readable defaults:
 - Indent with 2 spaces for YAML/JSON/Markdown and 4 spaces for code unless the language ecosystem strongly prefers otherwise.
 - Use descriptive file and module names such as `src/session_store.py` or `tests/test_session_store.py`.
 - Keep functions small and names explicit; prefer `snake_case` for Python-style code and `kebab-case` for Markdown filenames outside conventional root docs such as `README.md`, `AGENTS.md`, `PLANS.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`. ExecPlans in `plans/` are the exception: they should use the ordered `NN-kebab-case-name.md` pattern described in `PLANS.md`.
+- In TypeScript files, add explicit type annotations for variables (including locals, constants, and intermediate values) unless omission is required to avoid duplicating generated types verbatim.
 
 Documentation should also follow clear naming and ownership rules:
 - Keep `PRODUCT.md` focused on current product truth and capability scope, not implementation notes or temporary project status.
