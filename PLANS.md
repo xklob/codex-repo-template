@@ -6,7 +6,7 @@ This document describes the requirements for an execution plan ("ExecPlan"), a d
 
 When authoring an executable specification (ExecPlan), follow PLANS.md _to the letter_. If it is not in your context, refresh your memory by reading the entire PLANS.md file. Be thorough in reading (and re-reading) source material to produce an accurate specification. When creating a spec, start from the skeleton and flesh it out as you do your research.
 
-Write new ExecPlans to `plans/plan_name.md` under the repository root. Create the `plans/` directory if it does not already exist. Use a short, descriptive filename that reflects the work, keeping the `plan_name.md` pattern as the baseline convention.
+Write new ExecPlans to `plans/NN-short-descriptive-name.md` under the repository root. Create the `plans/` directory if it does not already exist. The `NN` prefix is a two-digit order number, starting with `00` when there are no existing plans and otherwise using the next unused number after the highest existing numeric prefix. The descriptive part after the prefix must use kebab-case and should name the work plainly, for example `00-add-feature-x.md` or `01-security-overhaul.md`. Do not renumber existing plans unless the change is explicitly a plan-order cleanup; if a new plan supersedes an older one, give it the next number and explain the relationship inside the plan.
 
 If the repository contains root-level durable context documents such as `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, `ARCHITECTURE.md`, or another `ALLCAPS.md` file with project-wide rules, read them before writing or implementing the ExecPlan whenever they are relevant to the change. Treat those files as inputs to the plan, not substitutes for it: copy the relevant constraints, terminology, and invariants into the ExecPlan in your own words so the plan remains self-contained.
 
@@ -38,7 +38,7 @@ If `PRODUCT.md` exists and the work affects current user-visible capabilities, w
 
 Format and envelope are simple and strict. Each ExecPlan must be one single fenced code block labeled as `md` that begins and ends with triple backticks. Do not nest additional triple-backtick code fences inside; when you need to show commands, transcripts, diffs, or code, present them as indented blocks within that single fence. Use indentation for clarity rather than code fences inside an ExecPlan to avoid prematurely closing the ExecPlan's code fence. Use two newlines after every heading, use # and ## and so on, and correct syntax for ordered and unordered lists.
 
-When writing an ExecPlan to a Markdown (.md) file where the content of the file *is only* the single ExecPlan, you should omit the triple backticks. The default on-disk location for such files is `plans/plan_name.md`.
+When writing an ExecPlan to a Markdown (.md) file where the content of the file *is only* the single ExecPlan, you should omit the triple backticks. The default on-disk location for such files is `plans/NN-short-descriptive-name.md`, using the next available two-digit prefix to preserve plan order.
 
 Write in plain prose. Prefer sentences over lists. Avoid checklists, tables, and long enumerations unless brevity would obscure meaning. Checklists are permitted only in the `Progress` section, where they are mandatory. Narrative sections must remain prose-first.
 
@@ -88,7 +88,7 @@ Prefer additive code changes followed by subtractions that keep tests passing. P
 
     If PLANS.md file is checked into the repo, reference the path to that file here from the repository root and note that this document must be maintained in accordance with PLANS.md.
 
-    Save this file at `plans/plan_name.md` in the repository root, using a short descriptive filename.
+    Save this file at `plans/NN-short-descriptive-name.md` in the repository root. Use the next available two-digit prefix so the filename preserves the order in which plans were created, and use a short kebab-case description after the prefix.
 
     ## Purpose / Big Picture
 

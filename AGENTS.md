@@ -4,6 +4,8 @@
 
 When writing complex features or significant refactors, use an ExecPlan (as described in `PLANS.md`) from design to implementation.
 
+Create new ExecPlan files under `plans/` with a two-digit ordering prefix and a short kebab-case name, for example `plans/00-add-feature-x.md` or `plans/01-security-overhaul.md`. Use the next unused number after the highest existing prefixed plan so multiple plans remain easy to scan in sequence.
+
 ## Core Documents
 
 Treat the root documentation files as durable project control documents:
@@ -45,7 +47,7 @@ If you introduce a language toolchain, add its canonical commands to this sectio
 Use consistent, readable defaults:
 - Indent with 2 spaces for YAML/JSON/Markdown and 4 spaces for code unless the language ecosystem strongly prefers otherwise.
 - Use descriptive file and module names such as `src/session_store.py` or `tests/test_session_store.py`.
-- Keep functions small and names explicit; prefer `snake_case` for Python-style code and `kebab-case` for Markdown filenames outside conventional root docs such as `README.md`, `AGENTS.md`, `PLANS.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`.
+- Keep functions small and names explicit; prefer `snake_case` for Python-style code and `kebab-case` for Markdown filenames outside conventional root docs such as `README.md`, `AGENTS.md`, `PLANS.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`. ExecPlans in `plans/` are the exception: they should use the ordered `NN-kebab-case-name.md` pattern described in `PLANS.md`.
 
 Documentation should also follow clear naming and ownership rules:
 - Keep `PRODUCT.md` focused on current product truth and capability scope, not implementation notes or temporary project status.

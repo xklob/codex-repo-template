@@ -31,6 +31,7 @@ Suggested shape:
 - `src/[api_or_transport]` - Accepts external requests and translates them into domain operations.
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
+- `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created.
 - `tests/` - Mirrors `src/` and verifies ...
 - `assets/` - Stores static assets used by ...
 

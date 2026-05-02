@@ -52,6 +52,10 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template includes a project-scoped Codex configuration file at `.codex/config.toml`. When a contributor uses Codex in a trusted checkout, Codex should use `gpt-5.5` as the default model for work in this repository.
 
+### Ordered ExecPlan Guidance
+
+`Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context.
+
 ## 4. Core Workflows
 
 Describe the end-to-end workflows that currently define the product.
@@ -66,7 +70,7 @@ Focus on the workflows that are actually available now. If a workflow is partial
 
 ### Agent-Assisted Repository Work
 
-A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
+A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
 ## 5. Product Constraints and Known Limits
 

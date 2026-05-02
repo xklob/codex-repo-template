@@ -28,7 +28,7 @@ The current repository is mostly documentation by design. Each root document has
 - `PRODUCT.md` captures the current user-visible product state, workflows, capability boundaries, and important limitations.
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
 - `AGENTS.md` contains repository-specific instructions for coding agents working in this repo.
-- `PLANS.md` defines the ExecPlan format and the rules for using execution plans on complex work.
+- `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work.
 - `DESIGN.md` is the durable design-language reference for the product.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
 - `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
@@ -38,6 +38,7 @@ The repository also reserves these top-level directories:
 - `src/` for runtime code
 - `tests/` for tests that mirror the `src/` layout
 - `assets/` for static assets when the project needs them
+- `plans/` for ordered ExecPlans named with the next `NN-kebab-case-name.md` prefix
 
 ## Core Idea: Durable Context First
 
@@ -64,7 +65,7 @@ Start by turning the template into the real project you want to build.
 3. Decide on your initial language, framework, and toolchain.
 4. Add your first runtime code under `src/` and mirror tests under `tests/`.
 5. Document the canonical development and test commands in `README.md` as soon as you introduce them.
-6. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity.
+6. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order.
 
 In practice, the first pass through the template usually looks like this:
 
@@ -94,7 +95,7 @@ If you are starting a new project from scratch, this sequence works well:
    Put runtime code in `src/`, keep tests in `tests/`, and keep the layout simple until the project clearly needs more structure.
 
 5. Use ExecPlans for substantial work.
-   When the task is complex or likely to touch multiple areas, write a plan in `plans/` and keep it current as the work proceeds.
+   When the task is complex or likely to touch multiple areas, write a plan in `plans/` and keep it current as the work proceeds. Name new plan files with the next ordered prefix, for example `00-add-feature-x.md` followed by `01-security-overhaul.md`.
 
 ## Working With Coding Agents
 
@@ -154,7 +155,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
 - Treat root-level `ALLCAPS.md` files as durable project guidance, not scratch notes.
-- Use ExecPlans for complex features and significant refactors.
+- Use ordered ExecPlan filenames for complex features and significant refactors, following the `plans/NN-kebab-case-name.md` convention in `PLANS.md`.
 - Keep the repository easy for a new human or agent to understand without hidden context.
 - Keep the project-scoped Codex model default in `.codex/config.toml` unless a deliberate model migration updates the relevant docs at the same time.
 
