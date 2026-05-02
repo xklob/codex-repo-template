@@ -24,6 +24,15 @@ If you introduce a new root-level `ALLCAPS.md` file, treat it as a new control d
 - Update `PLANS.md` if ExecPlans are expected to read, update, or validate that file.
 - State what kinds of code or product changes must keep the new file in sync.
 
+
+## Code Commenting Requirements
+When editing or adding source code, comments are required so reviewers can understand intent without reconstructing logic from scratch.
+
+- Add a file-header comment at the top of every source file summarizing the file purpose, key classes/functions, and how the file fits into the project.
+- Add a short comment above every non-trivial function describing what it does; for complex functions, include a brief step-by-step outline of the control flow.
+- Add inline comments for unclear variable names, non-obvious assumptions, and hard-coded constants so future contributors understand why values exist.
+- Avoid redundant comments that only restate syntax; comments should explain intent and reasoning.
+
 ## Project Structure & Module Organization
 This repository is intentionally minimal at the moment. Keep runtime code in `src/`, mirror tests in `tests/`, keep static assets in `assets/`, and leave long-lived documentation in the repository root.
 

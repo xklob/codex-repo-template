@@ -56,6 +56,10 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context.
 
+### Commented Source Expectations
+
+`Core`: Contributor guidance requires source files to include file-level purpose comments, non-trivial functions to include summary comments, and complex or assumption-heavy logic to include inline explanatory comments. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories.
+
 ## 4. Core Workflows
 
 Describe the end-to-end workflows that currently define the product.
