@@ -30,7 +30,7 @@ The current repository is mostly documentation by design. Each root document has
 - `AGENTS.md` contains repository-specific instructions for coding agents working in this repo.
 - `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work.
 - `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
-- `DESIGN.md` is the durable design-language reference for the product.
+- `DESIGN.md` is the durable design-language reference for the product, including the professional UI/UX review pass required for UI-affecting ExecPlan work.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
 - `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
 
@@ -40,6 +40,7 @@ The repository also reserves these top-level directories:
 - `tests/` for tests that mirror the `src/` layout
 - `assets/` for static assets when the project needs them
 - `plans/` for ordered ExecPlans named with the next `NN-kebab-case-name.md` prefix
+- `scripts/` for portable contributor utilities, including `scripts/win-screenshot` for full-desktop screenshots from Windows 11 with WSL
 
 ## Core Idea: Durable Context First
 
@@ -116,7 +117,8 @@ To keep that working:
 - keep implementation work observable through tests, commands, or clear acceptance criteria
 - keep `.codex/config.toml` narrow and intentional; model-default changes should be reflected in the relevant control documents
 - use the repo-local `agent-browser` skill for browser interaction, screenshots, video recordings, form automation, exploratory QA, UI bug reproduction, and web-app quality review; load `.agents/skills/agent-browser/SKILL.md` first, then the installed core guidance with `agent-browser skills get core`
-- after UI changes, or backend changes that can alter frontend layout or presentation, capture and inspect screenshots across desktop and mobile viewports before calling the work complete
+- after UI changes, or backend changes that can alter frontend layout or presentation, capture and inspect screenshots across desktop and mobile viewports, then apply the professional UI/UX review pass in `DESIGN.md` before calling the work complete
+- use `scripts/win-screenshot [output.png]` when a contributor on Windows 11 with WSL needs a full-desktop screenshot outside a browser or Electron automation context
 
 For larger changes, point agents at the relevant control documents and have them work from an ExecPlan rather than a vague prompt alone.
 
@@ -138,6 +140,7 @@ Use this layout unless the project has a strong reason to evolve beyond it:
 ├── README.md
 ├── assets/
 ├── plans/
+├── scripts/
 ├── src/
 └── tests/
 ```
@@ -151,6 +154,7 @@ No language-specific toolchain is checked in yet. Until you add one, the lightwe
 - `git status` to inspect pending changes
 - `rg --files --hidden -g '!.git/**'` to list the current file set, including project-scoped Codex configuration
 - `git log --oneline` to inspect commit-message style
+- `scripts/win-screenshot [output.png]` to capture the full Windows desktop from a Windows 11 + WSL environment when visual evidence must include the host desktop rather than only a browser page
 
 Once you introduce a real toolchain, replace this section with the canonical commands contributors should run.
 
@@ -194,6 +198,7 @@ For projects with a browser or Electron UI, validation should also include visua
 - use `agent-browser` to take screenshots at several resolutions, including desktop and mobile, and include tablet or narrow-desktop coverage when responsive layout is involved
 - record important user flows when the change affects interaction, navigation, animation, or a visual state that is hard to judge from still images
 - inspect the captured evidence for UI regressions, responsive breakage, text overflow, broken states, and practical quality-of-life improvements before finishing the change
+- apply the professional UI/UX review pass in `DESIGN.md`, correcting in-scope issues with hierarchy, spacing, typography, accessibility-visible states, responsive behavior, workflow friction, and interaction feedback
 - keep before-and-after evidence for ExecPlan work when the plan affects frontend presentation, so reviewers can compare what visibly changed; save screenshots under `plans/<name-of-plan>/screenshots/` with names such as `before-implementation-1.png` and `after-implementation-1.png`
 
 ## Philosophy
