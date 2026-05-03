@@ -8,6 +8,18 @@ The template is intentionally minimal. It does not lock you into a language, fra
 - a simple repository layout for code, tests, and assets
 - contributor guidance that keeps human and agent work aligned as the project grows
 
+## Start Here After Cloning
+
+After creating a real project from this template, ask Codex to use the repo-local `project-bootstrap` skill before you start hand-editing placeholders or adding product code.
+
+Example prompt:
+
+```text
+Use the project-bootstrap skill to customize this newly cloned template for my project.
+```
+
+The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
+
 ## What This Template Is For
 
 Use this template when you want a new repository to:
@@ -33,6 +45,9 @@ The current repository is mostly documentation by design. Each root document has
 - `DESIGN.md` is the durable design-language reference for the product, including the professional UI/UX review pass required for UI-affecting ExecPlan work.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
 - `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
+- `.agents/skills/project-bootstrap/SKILL.md` is the guided first-run workflow for replacing template placeholders with project-specific truth, installing approved setup tooling, and producing the initial setup ExecPlan.
+- `.agents/skills/ask-questions-if-underspecified/SKILL.md` is the clarification workflow for work whose objective, scope, constraints, or safety are not clear enough to implement.
+- `.agents/skills/agent-browser/SKILL.md` is the repo-local pointer to browser automation guidance for screenshots, UI review, and web or Electron interaction.
 
 The repository also reserves these top-level directories:
 
@@ -64,11 +79,13 @@ As the project evolves, these documents should be updated alongside the code the
 Start by turning the template into the real project you want to build.
 
 1. Create a new repository from this template, or clone it and rename it for your project.
-2. Replace placeholder text in `README.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`, and adapt `CODESTYLE.md` if the project needs different code conventions.
-3. Decide on your initial language, framework, and toolchain.
-4. Add your first runtime code under `src/` and mirror tests under `tests/`.
-5. Document the canonical development and test commands in `README.md` as soon as you introduce them.
-6. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order.
+2. Ask Codex to use the `project-bootstrap` skill from `.agents/skills/project-bootstrap/SKILL.md`.
+3. Answer the project intake so the repository can be customized around the real product, users, workflows, toolchain, constraints, and roadmap.
+4. Let the skill update `README.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, `ARCHITECTURE.md`, `CODESTYLE.md`, `AGENTS.md`, and any selected setup files so they describe the actual project instead of the generic template.
+5. Let the skill install only the approved frameworks or packages needed for the initial toolchain; do not use it to implement product feature code.
+6. Continue from the ordered ExecPlan that the skill creates under `plans/`, then add runtime code under `src/` and mirror tests under `tests/`.
+7. Document the canonical development and test commands in `README.md` as soon as you introduce them.
+8. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order.
 
 In practice, the first pass through the template usually looks like this:
 
@@ -79,26 +96,29 @@ In practice, the first pass through the template usually looks like this:
 - describe the visual and interaction direction in `DESIGN.md`
 - describe the codebase shape and boundaries in `ARCHITECTURE.md`
 - add the initial toolchain and document its commands
-- implement the first thin slice of real functionality
+- create an initial setup ExecPlan for the first thin slice of real functionality
 - confirm `.codex/config.toml` still matches the default Codex model you want contributors to use
 
 ## Recommended Bootstrap Workflow
 
 If you are starting a new project from scratch, this sequence works well:
 
-1. Define the product briefly.
-   Write a short description of who the user is, what problem the project solves, and what the first usable workflow should be.
+1. Run the guided project bootstrap skill.
+   Ask Codex to use `.agents/skills/project-bootstrap/SKILL.md`. The skill will inspect the clone, ask for the product brief, recommend simpler alternatives when appropriate, and confirm the scope before editing.
 
 2. Establish the durable docs.
-   Update `README.md`, `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, and `ARCHITECTURE.md` so a new contributor can understand the project without external context.
+   Use the skill to update `README.md`, `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, `ARCHITECTURE.md`, and `AGENTS.md` so a new contributor can understand the project without external context.
 
 3. Add the toolchain.
-   Choose your language and development commands. When you do, document the canonical commands in this README. Prefer a single obvious entry point such as `make test`, `npm test`, or `pytest`.
+   Choose your language, framework, package manager, and development commands. The skill may install approved frameworks or packages for that setup, then must document the canonical commands in this README. Prefer a single obvious entry point such as `make test`, `npm test`, or `pytest`.
 
-4. Build with small, testable increments.
+4. Plan the first implementation increment.
+   The skill finishes by creating an ordered ExecPlan under `plans/`. That plan should describe the first setup or implementation slice in enough detail for a future contributor to execute without remembering the intake conversation.
+
+5. Build with small, testable increments.
    Put runtime code in `src/`, keep tests in `tests/`, and keep the layout simple until the project clearly needs more structure.
 
-5. Use ExecPlans for substantial work.
+6. Use ExecPlans for substantial work.
    When the task is complex or likely to touch multiple areas, write a plan in `plans/` and keep it current as the work proceeds. Name new plan files with the next ordered prefix, for example `00-add-feature-x.md` followed by `01-security-overhaul.md`.
 
 ## Working With Coding Agents
@@ -116,6 +136,7 @@ To keep that working:
 - update `ARCHITECTURE.md` when structure, ownership, or invariants change
 - keep implementation work observable through tests, commands, or clear acceptance criteria
 - keep `.codex/config.toml` narrow and intentional; model-default changes should be reflected in the relevant control documents
+- use the repo-local `project-bootstrap` skill for the first customization pass after cloning; it should update docs and setup tooling, then hand off implementation through an ExecPlan
 - use the repo-local `agent-browser` skill for browser interaction, screenshots, video recordings, form automation, exploratory QA, UI bug reproduction, and web-app quality review; load `.agents/skills/agent-browser/SKILL.md` first, then the installed core guidance with `agent-browser skills get core`
 - after UI changes, or backend changes that can alter frontend layout or presentation, capture and inspect screenshots across desktop and mobile viewports, then apply the professional UI/UX review pass in `DESIGN.md` before calling the work complete
 - use `scripts/win-screenshot [output.png]` when a contributor on Windows 11 with WSL needs a full-desktop screenshot outside a browser or Electron automation context
@@ -128,6 +149,11 @@ Use this layout unless the project has a strong reason to evolve beyond it:
 
 ```text
 .
+├── .agents/
+│   └── skills/
+│       ├── agent-browser/
+│       ├── ask-questions-if-underspecified/
+│       └── project-bootstrap/
 ├── .codex/
 │   └── config.toml
 ├── AGENTS.md
@@ -149,7 +175,7 @@ Not every directory needs to exist on day one. Add them when the project needs t
 
 ## Build, Test, and Development Commands
 
-No language-specific toolchain is checked in yet. Until you add one, the lightweight repository checks are:
+No application build or test toolchain is checked in yet. The existing npm manifest is only for contributor tooling such as `agent-browser`. Until you add an application toolchain, the lightweight repository checks are:
 
 - `git status` to inspect pending changes
 - `rg --files --hidden -g '!.git/**'` to list the current file set, including project-scoped Codex configuration
@@ -164,6 +190,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 - Mirror tests under `tests/`.
 - Follow `CODESTYLE.md` for source formatting, naming, TypeScript annotation expectations, and strict commenting standards.
 - Keep static assets in `assets/` when needed.
+- Use `.agents/skills/project-bootstrap/SKILL.md` for the first project-specific customization pass after cloning.
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
 - Treat root-level `ALLCAPS.md` files as durable project guidance, not scratch notes.
@@ -175,12 +202,15 @@ Once you introduce a real toolchain, replace this section with the canonical com
 
 Before calling a project based on this template "ready," make sure you have done the following:
 
+- run the `project-bootstrap` skill or completed an equivalent project-specific intake and documented the decisions it would have captured
 - replaced placeholder project names in `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`
 - described the actual product and intended users in this README
 - described the current capabilities and workflows in `PRODUCT.md`
 - described the intended direction and near-term priorities in `ROADMAP.md`
 - confirmed that `CODESTYLE.md` matches the code conventions and commenting standards you want contributors to follow
 - documented the initial toolchain and test command
+- installed only the frameworks and packages that are needed for the confirmed initial setup
+- created an ordered initial setup ExecPlan under `plans/`
 - created the first `src/` and `tests/` modules
 - confirmed that `AGENTS.md` matches how you want coding agents to work in the repo
 - confirmed that `.codex/config.toml` pins the intended default Codex model

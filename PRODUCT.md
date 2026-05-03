@@ -52,6 +52,10 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template includes a project-scoped Codex configuration file at `.codex/config.toml`. When a contributor uses Codex in a trusted checkout, Codex should use `gpt-5.5` as the default model for work in this repository.
 
+### Guided Project Bootstrap Skill
+
+`Core`: The template includes a repo-local `project-bootstrap` skill at `.agents/skills/project-bootstrap/SKILL.md`. After cloning, a contributor can ask Codex to use this skill to gather the product brief, propose safer alternatives when needed, update the root control documents, install approved frameworks or packages for the initial toolchain, and create an ordered ExecPlan for the first setup work. The skill is not for implementing product feature code.
+
 ### Ordered ExecPlan Guidance
 
 `Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context.
@@ -84,6 +88,10 @@ Focus on the workflows that are actually available now. If a workflow is partial
 
 A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
+### Template-To-Project Bootstrap
+
+A human creates a new project from the template, then asks Codex to use the repo-local `project-bootstrap` skill. The skill inspects the clone, gathers product, roadmap, design, architecture, toolchain, validation, and repository-operation details, and confirms the setup scope before editing. It then replaces generic template guidance with project-specific control-document truth, installs the approved setup dependencies, and ends by writing an ordered ExecPlan for the first implementation or setup slice.
+
 ### Visual Evidence Capture On Windows/WSL
 
 A contributor working on Windows 11 with WSL can run `scripts/win-screenshot [output.png]` from any clone to capture the complete host desktop as a PNG. This supports desktop-level bug reports, tool validation, and cases where browser-only screenshots do not show enough surrounding context.
@@ -102,6 +110,8 @@ Examples:
 These are not implementation details for their own sake; include them only when they materially define the current product behavior or scope.
 
 Current Codex model defaults apply only to Codex environments that load trusted project-scoped `.codex/config.toml` files. They do not create an application runtime, API integration, model router, or test harness.
+
+The project bootstrap skill prepares a repository for implementation, but it does not implement the product itself. It may install approved tooling and update setup configuration, but user-visible product behavior should be built later from the ExecPlan it creates.
 
 The desktop screenshot helper is intentionally scoped to Windows 11 with WSL and requires `powershell.exe` and `wslpath` on PATH. It is not a cross-platform Linux, macOS, browser, or mobile screenshot tool.
 
