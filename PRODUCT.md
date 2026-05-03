@@ -56,9 +56,9 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context.
 
-### Commented Source Expectations
+### Code Convention Expectations
 
-`Core`: Contributor guidance requires source files to include file-level purpose comments, non-trivial functions to include summary comments, and complex or assumption-heavy logic to include inline explanatory comments. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories.
+`Core`: The template includes `CODESTYLE.md` as the canonical source for code conventions and strict commenting standards. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories, and other documents should point to `CODESTYLE.md` instead of duplicating detailed style rules.
 
 ## 4. Core Workflows
 
@@ -103,6 +103,7 @@ Use this file together with the other root documents:
 
 - `README.md` explains what the repository is, how to run it, and how to contribute.
 - `ROADMAP.md` explains the intended future direction, planned capabilities, and strategic priorities.
+- `CODESTYLE.md` explains source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
 - `DESIGN.md` explains how the product should look and feel.
 - `ARCHITECTURE.md` explains how the system is structured internally.
 - `PLANS.md` explains how substantial changes should be planned and executed.

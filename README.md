@@ -4,7 +4,7 @@ This repository is a starting point for agentic-forward software projects: proje
 
 The template is intentionally minimal. It does not lock you into a language, framework, or deployment target. Instead, it gives you a durable operating model:
 
-- stable root documents that define current product truth, future direction, design language, architecture, and execution-planning expectations
+- stable root documents that define current product truth, future direction, code style, design language, architecture, and execution-planning expectations
 - a simple repository layout for code, tests, and assets
 - contributor guidance that keeps human and agent work aligned as the project grows
 
@@ -29,6 +29,7 @@ The current repository is mostly documentation by design. Each root document has
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
 - `AGENTS.md` contains repository-specific instructions for coding agents working in this repo.
 - `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work.
+- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
 - `DESIGN.md` is the durable design-language reference for the product.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
 - `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
@@ -50,6 +51,7 @@ This template treats the root documentation as project control documents:
 - `PRODUCT.md` keeps the current product truth explicit, especially for small and medium user-visible changes that may not get their own ExecPlan.
 - `ROADMAP.md` keeps intended future direction explicit so contributors can distinguish current behavior from planned behavior.
 - `PLANS.md` ensures larger changes are driven by self-contained execution plans.
+- `CODESTYLE.md` keeps source conventions and commenting standards explicit.
 - `DESIGN.md` captures stable product and interface language.
 - `ARCHITECTURE.md` captures stable system boundaries and invariants.
 - `AGENTS.md` tells coding agents how to behave in this specific repository.
@@ -61,7 +63,7 @@ As the project evolves, these documents should be updated alongside the code the
 Start by turning the template into the real project you want to build.
 
 1. Create a new repository from this template, or clone it and rename it for your project.
-2. Replace placeholder text in `README.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md` with project-specific content.
+2. Replace placeholder text in `README.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`, and adapt `CODESTYLE.md` if the project needs different code conventions.
 3. Decide on your initial language, framework, and toolchain.
 4. Add your first runtime code under `src/` and mirror tests under `tests/`.
 5. Document the canonical development and test commands in `README.md` as soon as you introduce them.
@@ -72,6 +74,7 @@ In practice, the first pass through the template usually looks like this:
 - name the product and describe the user problem in `README.md`
 - describe the product's current workflows and capabilities in `PRODUCT.md`
 - describe the intended future direction and planned capabilities in `ROADMAP.md`
+- adjust code conventions and commenting standards in `CODESTYLE.md`
 - describe the visual and interaction direction in `DESIGN.md`
 - describe the codebase shape and boundaries in `ARCHITECTURE.md`
 - add the initial toolchain and document its commands
@@ -86,7 +89,7 @@ If you are starting a new project from scratch, this sequence works well:
    Write a short description of who the user is, what problem the project solves, and what the first usable workflow should be.
 
 2. Establish the durable docs.
-   Update `README.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md` so a new contributor can understand the project without external context.
+   Update `README.md`, `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, and `ARCHITECTURE.md` so a new contributor can understand the project without external context.
 
 3. Add the toolchain.
    Choose your language and development commands. When you do, document the canonical commands in this README. Prefer a single obvious entry point such as `make test`, `npm test`, or `pytest`.
@@ -107,6 +110,7 @@ To keep that working:
 - update `PRODUCT.md` when user-visible capabilities, workflows, or scope boundaries change
 - update `ROADMAP.md` when long-lived product direction, priorities, or intended future capabilities change
 - document new commands when you add a toolchain
+- update `CODESTYLE.md` when source conventions, naming rules, TypeScript annotation expectations, documentation conventions, or commenting standards change
 - update `DESIGN.md` when stable design language changes
 - update `ARCHITECTURE.md` when structure, ownership, or invariants change
 - keep implementation work observable through tests, commands, or clear acceptance criteria
@@ -124,6 +128,7 @@ Use this layout unless the project has a strong reason to evolve beyond it:
 │   └── config.toml
 ├── AGENTS.md
 ├── ARCHITECTURE.md
+├── CODESTYLE.md
 ├── DESIGN.md
 ├── PLANS.md
 ├── PRODUCT.md
@@ -151,7 +156,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 
 - Keep runtime code in `src/`.
 - Mirror tests under `tests/`.
-- Add explanatory comments to source files: file-header purpose comments, non-trivial function summaries, and inline notes for non-obvious logic or constants.
+- Follow `CODESTYLE.md` for source formatting, naming, TypeScript annotation expectations, and strict commenting standards.
 - Keep static assets in `assets/` when needed.
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
@@ -168,6 +173,7 @@ Before calling a project based on this template "ready," make sure you have done
 - described the actual product and intended users in this README
 - described the current capabilities and workflows in `PRODUCT.md`
 - described the intended direction and near-term priorities in `ROADMAP.md`
+- confirmed that `CODESTYLE.md` matches the code conventions and commenting standards you want contributors to follow
 - documented the initial toolchain and test command
 - created the first `src/` and `tests/` modules
 - confirmed that `AGENTS.md` matches how you want coding agents to work in the repo
@@ -192,6 +198,7 @@ A new contributor should be able to clone the repository, read the root document
 - what the product is intended to become
 - how to work in it
 - where code should go
+- which code style and commenting standards apply
 - when to write a plan
 - which documents must be updated when the project changes
 

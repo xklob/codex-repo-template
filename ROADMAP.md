@@ -84,6 +84,7 @@ Use this file together with the other root documents:
 
 - `README.md` explains what the repository is, how to run it, and how to contribute.
 - `PRODUCT.md` explains what the product currently does today.
+- `CODESTYLE.md` explains source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
 - `DESIGN.md` explains how the product should look and feel.
 - `ARCHITECTURE.md` explains how the system is structured internally.
 - `PLANS.md` explains how substantial changes should be planned and executed.

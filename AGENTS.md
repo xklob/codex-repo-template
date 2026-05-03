@@ -13,10 +13,11 @@ Treat the root documentation files as durable project control documents:
 - `PRODUCT.md` captures the current user-visible product state, workflows, capability boundaries, and important limitations.
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
 - `PLANS.md` defines how ExecPlans must be written and maintained.
+- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
 - `DESIGN.md` captures the semantic design system in descriptive language, backed by concrete values where needed.
 - `ARCHITECTURE.md` captures the high-level codemap, architectural boundaries, and invariants.
 
-When a change materially affects current user-visible capabilities, workflows, scope boundaries, or important product limitations, update `PRODUCT.md` in the same change. When a change materially affects product vision, intended audience, strategic priorities, planned capabilities, sequencing assumptions, or explicit non-priorities, update `ROADMAP.md` in the same change. When a change materially affects product design language, update `DESIGN.md` in the same change. When a change materially affects structure, ownership, or system boundaries, update `ARCHITECTURE.md` in the same change.
+When a change materially affects current user-visible capabilities, workflows, scope boundaries, or important product limitations, update `PRODUCT.md` in the same change. When a change materially affects product vision, intended audience, strategic priorities, planned capabilities, sequencing assumptions, or explicit non-priorities, update `ROADMAP.md` in the same change. When a change materially affects source coding conventions, naming rules, TypeScript annotation expectations, documentation conventions, or commenting standards, update `CODESTYLE.md` in the same change. When a change materially affects product design language, update `DESIGN.md` in the same change. When a change materially affects structure, ownership, or system boundaries, update `ARCHITECTURE.md` in the same change.
 
 If you introduce a new root-level `ALLCAPS.md` file, treat it as a new control document by default. In the same change:
 - Define the file's purpose and scope inside the file itself.
@@ -25,13 +26,9 @@ If you introduce a new root-level `ALLCAPS.md` file, treat it as a new control d
 - State what kinds of code or product changes must keep the new file in sync.
 
 
-## Code Commenting Requirements
-When editing or adding source code, comments are required so reviewers can understand intent without reconstructing logic from scratch.
+## Code Style and Commenting Requirements
 
-- Add a file-header comment at the top of every source file summarizing the file purpose, key classes/functions, and how the file fits into the project.
-- Add a short comment above every non-trivial function describing what it does; for complex functions, include a brief step-by-step outline of the control flow.
-- Add inline comments for unclear variable names, non-obvious assumptions, and hard-coded constants so future contributors understand why values exist.
-- Avoid redundant comments that only restate syntax; comments should explain intent and reasoning.
+Follow `CODESTYLE.md` for source formatting, naming rules, TypeScript annotation expectations, documentation style, and strict commenting standards. That file is canonical; keep detailed style and commenting rules there instead of duplicating them in this guide.
 
 ## Project Structure & Module Organization
 This repository is intentionally minimal at the moment. Keep runtime code in `src/`, mirror tests in `tests/`, keep static assets in `assets/`, and leave long-lived documentation in the repository root.
@@ -52,22 +49,7 @@ There is no checked-in build or test toolchain yet. Until one is added, use ligh
 
 If you introduce a language toolchain, add its canonical commands to this section in the same change. Prefer a single documented entry point such as `make test`, `npm test`, or `pytest`.
 
-## Coding Style & Naming Conventions
-Use consistent, readable defaults:
-- Indent with 2 spaces for YAML/JSON/Markdown and 4 spaces for code unless the language ecosystem strongly prefers otherwise.
-- Use descriptive file and module names such as `src/session_store.py` or `tests/test_session_store.py`.
-- Keep functions small and names explicit; prefer `snake_case` for Python-style code and `kebab-case` for Markdown filenames outside conventional root docs such as `README.md`, `AGENTS.md`, `PLANS.md`, `PRODUCT.md`, `ROADMAP.md`, `DESIGN.md`, and `ARCHITECTURE.md`. ExecPlans in `plans/` are the exception: they should use the ordered `NN-kebab-case-name.md` pattern described in `PLANS.md`.
-- In TypeScript files, add explicit type annotations for variables (including locals, constants, and intermediate values) unless omission is required to avoid duplicating generated types verbatim.
-
-Documentation should also follow clear naming and ownership rules:
-- Keep `PRODUCT.md` focused on current product truth and capability scope, not implementation notes or temporary project status.
-- Keep `ROADMAP.md` focused on durable product direction and priorities, not ticket backlogs or sprint-by-sprint planning.
-- Keep `DESIGN.md` focused on stable visual language, not per-screen implementation notes.
-- Keep `ARCHITECTURE.md` focused on stable structure and boundaries, not low-level algorithm details.
-- Keep `README.md` focused on onboarding, commands, and user-facing project context.
-- Reserve new root-level `ALLCAPS.md` files for durable guidance or control documents, not scratch notes or one-off design dumps.
-
-If you add formatters or linters, run them before opening a PR and document them here.
+If you add formatters or linters, run them before opening a PR and document their canonical commands here, in `README.md`, and in `CODESTYLE.md`.
 
 ## Testing Guidelines
 New behavior should ship with tests. Mirror the source layout inside `tests/` and name tests after the unit under test, for example `tests/test_cli.py`.
