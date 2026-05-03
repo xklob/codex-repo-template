@@ -18,7 +18,7 @@ Example prompt:
 Use the project-bootstrap skill to customize this newly cloned template for my project.
 ```
 
-The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
+The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. When that plan can affect frontend presentation, it includes explicit before-and-after screenshot steps. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
 
 ## What This Template Is For
 
@@ -40,7 +40,7 @@ The current repository is mostly documentation by design. Each root document has
 - `PRODUCT.md` captures the current user-visible product state, workflows, capability boundaries, and important limitations.
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
 - `AGENTS.md` contains repository-specific instructions for coding agents working in this repo.
-- `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work.
+- `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work, including explicit before-and-after screenshot steps for UI-affecting plans.
 - `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
 - `DESIGN.md` is the durable design-language reference for the product, including the professional UI/UX review pass required for UI-affecting ExecPlan work.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
@@ -85,7 +85,7 @@ Start by turning the template into the real project you want to build.
 5. Let the skill install only the approved frameworks or packages needed for the initial toolchain; do not use it to implement product feature code.
 6. Continue from the ordered ExecPlan that the skill creates under `plans/`, then add runtime code under `src/` and mirror tests under `tests/`.
 7. Document the canonical development and test commands in `README.md` as soon as you introduce them.
-8. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order.
+8. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order. When a plan can affect frontend presentation, include separate before-screenshot and after-screenshot steps in the plan itself.
 
 In practice, the first pass through the template usually looks like this:
 
@@ -113,7 +113,7 @@ If you are starting a new project from scratch, this sequence works well:
    Choose your language, framework, package manager, and development commands. The skill may install approved frameworks or packages for that setup, then must document the canonical commands in this README. Prefer a single obvious entry point such as `make test`, `npm test`, or `pytest`.
 
 4. Plan the first implementation increment.
-   The skill finishes by creating an ordered ExecPlan under `plans/`. That plan should describe the first setup or implementation slice in enough detail for a future contributor to execute without remembering the intake conversation.
+   The skill finishes by creating an ordered ExecPlan under `plans/`. That plan should describe the first setup or implementation slice in enough detail for a future contributor to execute without remembering the intake conversation. If the planned work can affect frontend presentation, the plan should include explicit steps to capture baseline screenshots before implementation and matching screenshots after implementation.
 
 5. Build with small, testable increments.
    Put runtime code in `src/`, keep tests in `tests/`, and keep the layout simple until the project clearly needs more structure.
@@ -139,6 +139,7 @@ To keep that working:
 - use the repo-local `project-bootstrap` skill for the first customization pass after cloning; it should update docs and setup tooling, then hand off implementation through an ExecPlan
 - use the repo-local `agent-browser` skill for browser interaction, screenshots, video recordings, form automation, exploratory QA, UI bug reproduction, and web-app quality review; load `.agents/skills/agent-browser/SKILL.md` first, then the installed core guidance with `agent-browser skills get core`
 - after UI changes, or backend changes that can alter frontend layout or presentation, capture and inspect screenshots across desktop and mobile viewports, then apply the professional UI/UX review pass in `DESIGN.md` before calling the work complete
+- when authoring UI-affecting ExecPlans, make baseline screenshot capture and after-implementation screenshot capture separate execution steps in `Progress` and `Concrete Steps`, not only validation notes
 - use `scripts/win-screenshot [output.png]` when a contributor on Windows 11 with WSL needs a full-desktop screenshot outside a browser or Electron automation context
 
 For larger changes, point agents at the relevant control documents and have them work from an ExecPlan rather than a vague prompt alone.
@@ -194,7 +195,7 @@ Once you introduce a real toolchain, replace this section with the canonical com
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
 - Treat root-level `ALLCAPS.md` files as durable project guidance, not scratch notes.
-- Use ordered ExecPlan filenames for complex features and significant refactors, following the `plans/NN-kebab-case-name.md` convention in `PLANS.md`.
+- Use ordered ExecPlan filenames for complex features and significant refactors, following the `plans/NN-kebab-case-name.md` convention in `PLANS.md`; UI-affecting plans should also include explicit before-and-after screenshot steps.
 - Keep the repository easy for a new human or agent to understand without hidden context.
 - Keep the project-scoped Codex model default in `.codex/config.toml` unless a deliberate model migration updates the relevant docs at the same time.
 
@@ -229,7 +230,7 @@ For projects with a browser or Electron UI, validation should also include visua
 - record important user flows when the change affects interaction, navigation, animation, or a visual state that is hard to judge from still images
 - inspect the captured evidence for UI regressions, responsive breakage, text overflow, broken states, and practical quality-of-life improvements before finishing the change
 - apply the professional UI/UX review pass in `DESIGN.md`, correcting in-scope issues with hierarchy, spacing, typography, accessibility-visible states, responsive behavior, workflow friction, and interaction feedback
-- keep before-and-after evidence for ExecPlan work when the plan affects frontend presentation, so reviewers can compare what visibly changed; save screenshots under `plans/<name-of-plan>/screenshots/` with names such as `before-implementation-1.png` and `after-implementation-1.png`
+- keep before-and-after evidence for ExecPlan work when the plan affects frontend presentation, so reviewers can compare what visibly changed; the ExecPlan should list the before and after screenshot captures as execution steps and save screenshots under `plans/<name-of-plan>/screenshots/` with names such as `before-implementation-1.png` and `after-implementation-1.png`
 
 ## Philosophy
 

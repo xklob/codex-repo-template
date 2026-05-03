@@ -138,7 +138,7 @@ The ExecPlan must be self-contained and must not assume the reader remembers the
 - package/tooling commands already installed and commands still to run
 - validation and acceptance criteria
 - required control-document updates
-- visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation
+- visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation, including explicit `Progress` and `Concrete Steps` entries for baseline screenshots before implementation and matching screenshots after implementation
 - open questions and deferred decisions
 
 Do not execute the implementation steps in that ExecPlan unless the user explicitly asks in a later request.
