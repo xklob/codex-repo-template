@@ -159,7 +159,10 @@ designer or frontend lead would send back for revision.
 
 The review must inspect screenshots or recordings captured after
 implementation, and it should compare them to before evidence when the ExecPlan
-changed an existing surface. Cover desktop and mobile viewports, plus tablet or
+changed an existing surface. The ExecPlan should make visual evidence capture
+explicit by listing baseline screenshot capture before implementation and
+matching after-implementation screenshot capture before final acceptance as
+separate execution steps. Cover desktop and mobile viewports, plus tablet or
 narrow-desktop widths when layout behavior changes at intermediate sizes. Look
 for interaction and presentation issues including:
 
