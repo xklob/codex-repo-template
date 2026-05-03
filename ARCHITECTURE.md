@@ -32,6 +32,7 @@ Suggested shape:
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
 - `CODESTYLE.md` - Owns source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards for template-derived code.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
+- `.agents/skills/` - Owns repo-local agent workflows. `project-bootstrap` guides the first template-to-project customization pass, `ask-questions-if-underspecified` protects unclear work from premature implementation, and `agent-browser` points agents to version-matched browser automation guidance.
 - `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created.
 - `scripts/` - Stores portable contributor utilities that should work from any clone in the expected environment. `scripts/win-screenshot` captures the full Windows desktop from Windows 11 with WSL by invoking Windows PowerShell and the Win32 desktop capture APIs.
 - `tests/` - Mirrors `src/` and verifies ...
@@ -55,6 +56,12 @@ Template:
 3. `[module]` applies the core business rules.
 4. `[module]` performs side effects such as persistence, network calls, or rendering.
 5. `[module]` returns a result to `[caller or UI]`.
+
+Template bootstrap flow:
+1. A contributor clones the template and asks Codex to use `.agents/skills/project-bootstrap/SKILL.md`.
+2. The skill instructs the agent to inspect the current clone, gather the product brief, challenge risky choices, and confirm the bootstrap scope.
+3. The agent updates root control documents and installs approved setup tooling without implementing product feature code.
+4. The agent writes the next ordered ExecPlan under `plans/` so the first implementation slice can proceed from repository context instead of chat history.
 
 ## Architectural Invariants
 
@@ -116,6 +123,8 @@ Template prompts:
 - To add a new page or screen, wire it through ...
 - To change shared data shapes, update ... and then validate ...
 - To change the default Codex model, update `.codex/config.toml` and the control documents that describe the agent workflow.
+- To customize a fresh clone for a real project, use `.agents/skills/project-bootstrap/SKILL.md`, then execute the ordered ExecPlan it creates in a later implementation pass.
+- To add or change repo-local agent workflows, keep them under `.agents/skills/`, make the frontmatter trigger description specific, and update `README.md`, `PRODUCT.md`, `ARCHITECTURE.md`, and `AGENTS.md` when the workflow changes how contributors use the template.
 - To change source conventions or commenting standards, update `CODESTYLE.md` and remove duplicated wording from other control documents.
 - To add or change portable contributor tools, keep them under `scripts/`, document their environment assumptions in `README.md` and `AGENTS.md`, and validate them from a fresh repository-relative command when practical.
 

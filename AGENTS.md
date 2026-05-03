@@ -14,6 +14,12 @@ When creating a plan, even a small one, gather as much relevant information as p
 
 Do not treat planning for updates, features, or refactors as a quick or lightweight task. Strongly prefer doing the work correctly over doing it quickly, even when the better path is initially more technically complex or requires more upfront effort. If a shortcut would create technical debt, unclear boundaries, hidden coupling, future maintenance drag, or unnecessary context bloat, say so and recommend a more durable approach before implementation.
 
+## Project Bootstrap Skill
+
+Use the repo-local `project-bootstrap` skill for the first customization pass after a user clones this template for a real project. Load `.agents/skills/project-bootstrap/SKILL.md`, gather the project brief and setup requirements, suggest alternatives when the requested stack or sequence creates avoidable risk, update the root control documents with project-specific truth, install only approved setup frameworks or packages, and finish with an ordered ExecPlan for initial setup.
+
+Do not use `project-bootstrap` to implement product feature code. Its job is to prepare the repository and create the plan that later implementation work will follow.
+
 ## Agent Browser and Visual Review
 
 Use the repo-local `agent-browser` skill whenever the task requires browser interaction, browser inspection, screenshots, video recordings, form automation, scraping, exploratory testing, bug reproduction, UI review, or web-app quality checks. Also use it for Electron app automation when the task is about an Electron-based desktop app. Before running browser automation commands, load the current installed guidance from `.agents/skills/agent-browser/SKILL.md`, then use `agent-browser skills get core` or the relevant specialized skill so command usage matches the installed version.
@@ -51,13 +57,14 @@ This repository is intentionally minimal at the moment. Keep runtime code in `sr
 
 When adding application code, keep the layout simple and predictable:
 - Keep project-scoped Codex configuration in `.codex/config.toml`. The current default model is `gpt-5.5`.
+- Keep repo-local agent workflows in `.agents/skills/`. The `project-bootstrap` skill owns the guided template customization workflow, `ask-questions-if-underspecified` owns high-risk clarification, and `agent-browser` owns browser automation discovery.
 - Put runtime code in a top-level `src/` directory.
 - Mirror tests under `tests/`.
 - Keep static assets in `assets/` if they are needed later.
 - Leave repository-level documentation in the root.
 
 ## Build, Test, and Development Commands
-There is no checked-in build or test toolchain yet. Until one is added, use lightweight repo checks:
+There is no checked-in application build or test toolchain yet. The existing npm manifest is only for contributor tooling such as `agent-browser`. Until an application toolchain is added, use lightweight repo checks:
 
 - `git status` shows pending changes before commit or review.
 - `rg --files --hidden -g '!.git/**'` lists the current file set quickly, including `.codex/config.toml`.
