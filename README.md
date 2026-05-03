@@ -115,6 +115,8 @@ To keep that working:
 - update `ARCHITECTURE.md` when structure, ownership, or invariants change
 - keep implementation work observable through tests, commands, or clear acceptance criteria
 - keep `.codex/config.toml` narrow and intentional; model-default changes should be reflected in the relevant control documents
+- use the repo-local `agent-browser` skill for browser interaction, screenshots, video recordings, form automation, exploratory QA, UI bug reproduction, and web-app quality review; load `.agents/skills/agent-browser/SKILL.md` first, then the installed core guidance with `agent-browser skills get core`
+- after UI changes, or backend changes that can alter frontend layout or presentation, capture and inspect screenshots across desktop and mobile viewports before calling the work complete
 
 For larger changes, point agents at the relevant control documents and have them work from an ExecPlan rather than a vague prompt alone.
 
@@ -186,6 +188,13 @@ At template stage, validation is mostly structural:
 - `rg --files --hidden -g '!.git/**'` should show the expected control documents, project directories, and `.codex/config.toml`
 - `git status` should clearly reflect documentation and code changes
 - once a toolchain is added, the documented test command should become the default proof that the repository is healthy
+
+For projects with a browser or Electron UI, validation should also include visual evidence:
+
+- use `agent-browser` to take screenshots at several resolutions, including desktop and mobile, and include tablet or narrow-desktop coverage when responsive layout is involved
+- record important user flows when the change affects interaction, navigation, animation, or a visual state that is hard to judge from still images
+- inspect the captured evidence for UI regressions, responsive breakage, text overflow, broken states, and practical quality-of-life improvements before finishing the change
+- keep before-and-after evidence for ExecPlan work when the plan affects frontend presentation, so reviewers can compare what visibly changed; save screenshots under `plans/<name-of-plan>/screenshots/` with names such as `before-implementation-1.png` and `after-implementation-1.png`
 
 ## Philosophy
 
