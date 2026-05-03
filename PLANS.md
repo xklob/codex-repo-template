@@ -14,6 +14,8 @@ If a change introduces a new root-level `ALLCAPS.md` file, that same change must
 
 When implementing an executable specification (ExecPlan), do not prompt the user for "next steps"; simply proceed to the next milestone. Keep all sections up to date, add or split entries in the list at every stopping point to affirmatively state the progress made and next steps. Resolve ambiguities autonomously, and commit frequently.
 
+When an ExecPlan affects a browser UI, Electron UI, rendered documentation, visual design, or backend behavior that can change frontend layout or presentation, capture visual evidence before implementation begins and again after the implementation is complete. Use the repo-local `agent-browser` skill for browser interaction, screenshots, and video recordings. Load `.agents/skills/agent-browser/SKILL.md` first, then use `agent-browser skills get core` or the relevant specialized skill so the commands match the installed version. Capture screenshots at materially different viewports, including desktop and mobile, and include tablet or narrow-desktop coverage when responsive behavior is in scope. Save screenshots under `plans/<name-of-plan>/screenshots/`, where `<name-of-plan>` is the ExecPlan filename without `.md`, using names such as `before-implementation-1.png`, `before-implementation-2.png`, `after-implementation-1.png`, and `after-implementation-2.png`. Record videos of important flows before and after when interaction, navigation, animation, or multi-step UI state is part of the work, and save them under `plans/<name-of-plan>/recordings/` with matching before/after names. After implementation, compare the before-and-after screenshots and recordings, identify regressions, fixes, and quality-of-life improvements, and either make the in-scope corrections or record the remaining follow-up clearly in the ExecPlan.
+
 When discussing an executable specification (ExecPlan), record decisions in a log in the spec for posterity; it should be unambiguously clear why any change to the specification was made. ExecPlans are living documents, and it should always be possible to restart from _only_ the ExecPlan and no other work.
 
 When researching a design with challenging requirements or significant unknowns, use milestones to implement proof of concepts, "toy implementations", etc., that allow validating whether the user's proposal is feasible. Read the source code of libraries by finding or acquiring them, research deeply, and include prototypes to guide a fuller implementation.
@@ -27,6 +29,7 @@ NON-NEGOTIABLE REQUIREMENTS:
 * Every ExecPlan must enable a complete novice to implement the feature end-to-end without prior knowledge of this repo.
 * Every ExecPlan must produce a demonstrably working behavior, not merely code changes to "meet a definition".
 * Every ExecPlan must define every term of art in plain language or do not use it.
+* Every ExecPlan that can affect frontend presentation must define the before-and-after screenshot and video evidence it will capture, the viewports or devices it will cover, the `plans/<name-of-plan>/screenshots/` and `plans/<name-of-plan>/recordings/` artifact paths it will use, and how the final comparison will be reviewed for regressions and quality-of-life fixes.
 
 Purpose and intent come first. Begin by explaining, in a few sentences, why the work matters from a user's perspective: what someone can do after this change that they could not do before, and how to see it working. Then guide the reader through the exact steps to achieve that outcome, including what to edit, what to run, and what they should observe.
 
@@ -56,9 +59,11 @@ Be idempotent and safe. Write the steps so they can be run multiple times withou
 
 Validation is not optional. Include instructions to run tests, to start the system if applicable, and to observe it doing something useful. Describe comprehensive testing for any new features or capabilities. Include expected outputs and error messages so a novice can tell success from failure. Where possible, show how to prove that the change is effective beyond compilation (for example, through a small end-to-end scenario, a CLI invocation, or an HTTP request/response transcript). State the exact test commands appropriate to the project’s toolchain and how to interpret their results.
 
+For any ExecPlan that affects frontend presentation, validation must include visual review. Start the app, use `agent-browser` to capture baseline screenshots and videos before making UI-affecting changes, then capture matching after screenshots and videos once the plan is implemented. Cover multiple resolutions, including desktop and mobile, and name the exact viewport sizes or device presets in the plan. Save screenshots under `plans/<name-of-plan>/screenshots/` as `before-implementation-1.<extension>`, `before-implementation-2.<extension>`, `after-implementation-1.<extension>`, and so on; use the same numbering to pair comparable before and after views. Compare the before-and-after evidence directly. The plan must say what regressions were found, what fixes or quality-of-life improvements were made as a result, and what remains out of scope. If no runnable visual target exists, the plan must state why screenshots or videos cannot be captured and what alternative proof is sufficient.
+
 Documentation changes that are part of the feature are also subject to validation. If the ExecPlan includes updates to `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, `ARCHITECTURE.md`, or another in-scope root-level `ALLCAPS.md` file, specify what a reviewer should check to confirm those files match the implemented behavior and remain consistent with the code layout and user-visible result.
 
-Capture evidence. When your steps produce terminal output, short diffs, or logs, include them inside the single fenced block as indented examples. Keep them concise and focused on what proves success. If you need to include a patch, prefer file-scoped diffs or small excerpts that a reader can recreate by following your instructions rather than pasting large blobs.
+Capture evidence. When your steps produce terminal output, short diffs, logs, screenshots, or recordings, include the artifact paths and concise interpretation inside the single fenced block as indented examples. Keep them focused on what proves success. If you need to include a patch, prefer file-scoped diffs or small excerpts that a reader can recreate by following your instructions rather than pasting large blobs.
 
 ## Milestones
 
@@ -138,6 +143,10 @@ Prefer additive code changes followed by subtractions that keep tests passing. P
     ## Validation and Acceptance
 
     Describe how to start or exercise the system and what to observe. Phrase acceptance as behavior, with specific inputs and outputs. If tests are involved, say "run <project’s test command> and expect <N> passed; the new test <name> fails before the change and passes after>". If `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, `ARCHITECTURE.md`, or another root-level `ALLCAPS.md` file is in scope, include acceptance criteria for those files as well.
+
+    ## Visual Evidence
+
+    If this plan can affect frontend presentation, describe the exact before-and-after screenshot and video recording workflow. State the app URL or file to open, the `agent-browser` commands or device presets to use, the desktop and mobile viewport sizes to cover, and how the final evidence will be compared for regressions, fixes, and quality-of-life improvements. Save screenshots under `plans/<name-of-plan>/screenshots/` using names such as `before-implementation-1.png` and `after-implementation-1.png`, where `<name-of-plan>` is this ExecPlan file's name without `.md`. Save videos under `plans/<name-of-plan>/recordings/` with comparable before/after names. If visual evidence is not applicable, explain why.
 
     ## Idempotence and Recovery
 

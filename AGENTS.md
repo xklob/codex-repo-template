@@ -14,6 +14,14 @@ When creating a plan, even a small one, gather as much relevant information as p
 
 Do not treat planning for updates, features, or refactors as a quick or lightweight task. Strongly prefer doing the work correctly over doing it quickly, even when the better path is initially more technically complex or requires more upfront effort. If a shortcut would create technical debt, unclear boundaries, hidden coupling, future maintenance drag, or unnecessary context bloat, say so and recommend a more durable approach before implementation.
 
+## Agent Browser and Visual Review
+
+Use the repo-local `agent-browser` skill whenever the task requires browser interaction, browser inspection, screenshots, video recordings, form automation, scraping, exploratory testing, bug reproduction, UI review, or web-app quality checks. Also use it for Electron app automation when the task is about an Electron-based desktop app. Before running browser automation commands, load the current installed guidance from `.agents/skills/agent-browser/SKILL.md`, then use `agent-browser skills get core` or the relevant specialized skill so command usage matches the installed version.
+
+After any UI update, run the app when practical and capture several screenshots with `agent-browser` across materially different viewports, including desktop and mobile. Include tablet or narrow-desktop coverage when layout behavior changes at intermediate widths. For ExecPlan work, save screenshots under `plans/<name-of-plan>/screenshots/` using names such as `before-implementation-1.png`, `before-implementation-2.png`, `after-implementation-1.png`, and `after-implementation-2.png`; use the plan file's stem as `<name-of-plan>`. Inspect the screenshots before finishing the work and look for regressions, text overflow, clipped controls, awkward spacing, broken responsive states, accessibility-visible issues, and obvious quality-of-life improvements. Make the follow-up fixes that are in scope, and call out any remaining issues that need a separate product or design decision.
+
+Apply the same visual-review workflow to backend changes when they can affect frontend layout or presentation, such as API payload shape changes, empty/loading/error states, limits, sorting, labels, image dimensions, feature flags, or data that drives conditional UI. If no runnable browser or Electron target exists, state that visual review was not applicable and explain what validation replaced it.
+
 ## Core Documents
 
 Treat the root documentation files as durable project control documents:
