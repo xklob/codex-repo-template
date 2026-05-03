@@ -30,6 +30,7 @@ Suggested shape:
 - `src/[feature_or_domain]` - Contains the core business rules for ...
 - `src/[api_or_transport]` - Accepts external requests and translates them into domain operations.
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
+- `CODESTYLE.md` - Owns source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards for template-derived code.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
 - `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created.
 - `tests/` - Mirrors `src/` and verifies ...
@@ -114,6 +115,7 @@ Template prompts:
 - To add a new page or screen, wire it through ...
 - To change shared data shapes, update ... and then validate ...
 - To change the default Codex model, update `.codex/config.toml` and the control documents that describe the agent workflow.
+- To change source conventions or commenting standards, update `CODESTYLE.md` and remove duplicated wording from other control documents.
 
 If there are common mistakes, name them explicitly.
 
