@@ -43,6 +43,12 @@ Examples:
 
 These should be stable enough that they meaningfully guide future plans.
 
+Template-derived projects should treat UI quality as a product standard, not a
+cosmetic afterthought. When an ExecPlan affects UI or frontend presentation,
+the final review should apply the professional UI/UX pass in `DESIGN.md` so
+new surfaces are usable, responsive, accessible in visible interaction states,
+and polished enough for a product-quality handoff.
+
 ## 4. Current Phase
 
 Describe the current phase of the roadmap in plain language.

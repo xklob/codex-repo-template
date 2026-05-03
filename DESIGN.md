@@ -146,7 +146,42 @@ Include:
 
 If motion is intentionally minimal, say that explicitly.
 
-## 7. Prompting Notes
+## 7. Professional UI/UX Review Pass
+
+Any ExecPlan that creates, changes, or can indirectly affect a browser UI,
+Electron UI, rendered documentation surface, empty/loading/error state, layout,
+copy, navigation, or frontend data presentation must include a final UI/UX
+review pass before the work is called complete. This pass is not a casual visual
+check. Judge the result against UX-professional-grade standards: the interface
+should look intentional, support the user's real workflow, communicate hierarchy
+clearly, behave predictably across states, and avoid rough edges that a product
+designer or frontend lead would send back for revision.
+
+The review must inspect screenshots or recordings captured after
+implementation, and it should compare them to before evidence when the ExecPlan
+changed an existing surface. Cover desktop and mobile viewports, plus tablet or
+narrow-desktop widths when layout behavior changes at intermediate sizes. Look
+for interaction and presentation issues including:
+
+- unclear primary actions or weak visual hierarchy
+- cramped, drifting, or inconsistent spacing
+- text overflow, clipped controls, awkward wrapping, or illegible type
+- inaccessible contrast, missing focus states, undersized touch targets, or
+  keyboard-hostile flows
+- confusing empty, loading, disabled, validation, and error states
+- inconsistent component styling, icon use, copy tone, or affordances
+- layout breakage at responsive boundaries
+- unnecessary friction in the main workflow, including extra clicks, unclear
+  recovery paths, or state changes that surprise the user
+
+Make in-scope corrections immediately. If a remaining issue needs a product,
+design, or technical decision outside the current ExecPlan, document it in the
+ExecPlan's `Outcomes & Retrospective` section with the evidence path and the
+reason it was deferred. If no runnable visual target exists, state that the
+professional UI/UX pass is not applicable and explain what validation replaced
+it.
+
+## 8. Prompting Notes
 
 Capture short phrases that future contributors can reuse when asking an AI tool to extend the interface.
 
@@ -164,7 +199,7 @@ Capture short phrases that future contributors can reuse when asking an AI tool 
 - Avoid:
 - Avoid:
 
-## 8. Open Questions
+## 9. Open Questions
 
 Track unresolved design decisions that are stable enough to deserve visibility but not yet settled.
 

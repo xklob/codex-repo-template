@@ -33,6 +33,7 @@ Suggested shape:
 - `CODESTYLE.md` - Owns source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards for template-derived code.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
 - `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created.
+- `scripts/` - Stores portable contributor utilities that should work from any clone in the expected environment. `scripts/win-screenshot` captures the full Windows desktop from Windows 11 with WSL by invoking Windows PowerShell and the Win32 desktop capture APIs.
 - `tests/` - Mirrors `src/` and verifies ...
 - `assets/` - Stores static assets used by ...
 
@@ -116,6 +117,7 @@ Template prompts:
 - To change shared data shapes, update ... and then validate ...
 - To change the default Codex model, update `.codex/config.toml` and the control documents that describe the agent workflow.
 - To change source conventions or commenting standards, update `CODESTYLE.md` and remove duplicated wording from other control documents.
+- To add or change portable contributor tools, keep them under `scripts/`, document their environment assumptions in `README.md` and `AGENTS.md`, and validate them from a fresh repository-relative command when practical.
 
 If there are common mistakes, name them explicitly.
 

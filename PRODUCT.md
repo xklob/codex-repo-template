@@ -60,6 +60,14 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template includes `CODESTYLE.md` as the canonical source for code conventions and strict commenting standards. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories, and other documents should point to `CODESTYLE.md` instead of duplicating detailed style rules.
 
+### Professional UI/UX Review Expectations
+
+`Core`: The template requires UI-affecting ExecPlan work to finish with the professional UI/UX review pass defined in `DESIGN.md`. Contributors must judge rendered output against product-quality standards for hierarchy, workflow ergonomics, responsive behavior, accessible interaction states, spacing, typography, and predictable feedback before calling UI or frontend work complete.
+
+### Windows/WSL Desktop Screenshot Helper
+
+`Core`: The template includes `scripts/win-screenshot`, a portable helper for contributors running Windows 11 with Codex or another agent inside WSL. The script captures the full host Windows desktop, including shell UI such as the taskbar, when evidence needs to show the entire desktop rather than a browser page alone.
+
 ## 4. Core Workflows
 
 Describe the end-to-end workflows that currently define the product.
@@ -76,6 +84,10 @@ Focus on the workflows that are actually available now. If a workflow is partial
 
 A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
+### Visual Evidence Capture On Windows/WSL
+
+A contributor working on Windows 11 with WSL can run `scripts/win-screenshot [output.png]` from any clone to capture the complete host desktop as a PNG. This supports desktop-level bug reports, tool validation, and cases where browser-only screenshots do not show enough surrounding context.
+
 ## 5. Product Constraints and Known Limits
 
 Document the important current limits that shape user expectations or contributor decisions.
@@ -90,6 +102,8 @@ Examples:
 These are not implementation details for their own sake; include them only when they materially define the current product behavior or scope.
 
 Current Codex model defaults apply only to Codex environments that load trusted project-scoped `.codex/config.toml` files. They do not create an application runtime, API integration, model router, or test harness.
+
+The desktop screenshot helper is intentionally scoped to Windows 11 with WSL and requires `powershell.exe` and `wslpath` on PATH. It is not a cross-platform Linux, macOS, browser, or mobile screenshot tool.
 
 ## 6. Non-Goals
 

@@ -1,0 +1,2 @@
+# Installed package dependencies are local build artifacts.
+node_modules/
