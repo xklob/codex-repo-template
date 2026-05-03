@@ -6,6 +6,14 @@ When writing complex features or significant refactors, use an ExecPlan (as desc
 
 Create new ExecPlan files under `plans/` with a two-digit ordering prefix and a short kebab-case name, for example `plans/00-add-feature-x.md` or `plans/01-security-overhaul.md`. Use the next unused number after the highest existing prefixed plan so multiple plans remain easy to scan in sequence.
 
+## Planning and Change Intake
+
+Treat requested changes as suggested directions until the scope, tradeoffs, and long-term consequences are understood. If you see any problem with a requested change, push back before proceeding: explain the concern plainly, ask clarifying questions, and offer concrete alternatives when a different scope, sequence, or implementation would better protect the codebase.
+
+When creating a plan, even a small one, gather as much relevant information as practical from the user and the repository. Ask as many questions as needed to understand feature scope, expected workflows, future extension points, migration risks, maintainability costs, context growth, and how easy the resulting system will be for future contributors to understand.
+
+Do not treat planning for updates, features, or refactors as a quick or lightweight task. Strongly prefer doing the work correctly over doing it quickly, even when the better path is initially more technically complex or requires more upfront effort. If a shortcut would create technical debt, unclear boundaries, hidden coupling, future maintenance drag, or unnecessary context bloat, say so and recommend a more durable approach before implementation.
+
 ## Core Documents
 
 Treat the root documentation files as durable project control documents:
