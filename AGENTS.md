@@ -8,6 +8,8 @@ Create new ExecPlan files under `plans/` with a two-digit ordering prefix and a 
 
 When creating an ExecPlan that can affect frontend presentation, include explicit plan steps for taking baseline screenshots before implementation and matching after screenshots after implementation. Put those steps in the plan's `Progress` checklist and `Concrete Steps` section, and name the `plans/<name-of-plan>/screenshots/` paths the work will produce. If screenshots are not applicable because there is no runnable visual target, the plan should say that directly and name the replacement validation.
 
+When creating an ExecPlan that adds or changes code, include a final `Progress` and `Concrete Steps` item to check line counts for hand-written code files. Use the `CODESTYLE.md` preference that code files stay below 600 lines. If any file exceeds that preference, list the file and line count, recommend a concrete response such as a refactor, code split, fixture move, helper extraction, library addition, or documented exception, and ask the user to approve that extra work before implementing it unless the accepted plan already included it.
+
 ## Planning and Change Intake
 
 Treat requested changes as suggested directions until the scope, tradeoffs, and long-term consequences are understood. If you see any problem with a requested change, push back before proceeding: explain the concern plainly, ask clarifying questions, and offer concrete alternatives when a different scope, sequence, or implementation would better protect the codebase.
@@ -36,8 +38,8 @@ Treat the root documentation files as durable project control documents:
 - `README.md` explains what the project is, how to run it, and how to validate changes.
 - `PRODUCT.md` captures the current user-visible product state, workflows, capability boundaries, and important limitations.
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
-- `PLANS.md` defines how ExecPlans must be written and maintained.
-- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
+- `PLANS.md` defines how ExecPlans must be written and maintained, including final code-file line-count checks for code-changing plans.
+- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations.
 - `DESIGN.md` captures the semantic design system in descriptive language, backed by concrete values where needed, and defines the professional UI/UX review pass for UI-affecting ExecPlan work.
 - `ARCHITECTURE.md` captures the high-level codemap, architectural boundaries, and invariants.
 
@@ -52,7 +54,9 @@ If you introduce a new root-level `ALLCAPS.md` file, treat it as a new control d
 
 ## Code Style and Commenting Requirements
 
-Follow `CODESTYLE.md` for source formatting, naming rules, TypeScript annotation expectations, documentation style, and strict commenting standards. That file is canonical; keep detailed style and commenting rules there instead of duplicating them in this guide.
+Follow `CODESTYLE.md` for source formatting, naming rules, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations. That file is canonical; keep detailed style and commenting rules there instead of duplicating them in this guide.
+
+`CODESTYLE.md` also defines the strong preference to keep hand-written code files below 600 lines and to treat larger files as a review signal, not an automatic refactor mandate.
 
 ## Project Structure & Module Organization
 This repository is intentionally minimal at the moment. Keep runtime code in `src/`, mirror tests in `tests/`, keep static assets in `assets/`, portable contributor utilities in `scripts/`, and long-lived documentation in the repository root.

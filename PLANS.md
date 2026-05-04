@@ -18,6 +18,8 @@ When implementing an executable specification (ExecPlan), do not prompt the user
 
 When an ExecPlan affects a browser UI, Electron UI, rendered documentation, visual design, or backend behavior that can change frontend layout or presentation, capture visual evidence before implementation begins and again after the implementation is complete. The ExecPlan must make those captures visible as execution work, not only as acceptance criteria: add an explicit baseline screenshot step to `Progress` and `Concrete Steps` before code or presentation edits begin, and add an explicit matching after-implementation screenshot step after implementation and before final acceptance. Use the repo-local `agent-browser` skill for browser interaction, screenshots, and video recordings. Load `.agents/skills/agent-browser/SKILL.md` first, then use `agent-browser skills get core` or the relevant specialized skill so the commands match the installed version. Capture screenshots at materially different viewports, including desktop and mobile, and include tablet or narrow-desktop coverage when responsive behavior is in scope. Save screenshots under `plans/<name-of-plan>/screenshots/`, where `<name-of-plan>` is the ExecPlan filename without `.md`, using names such as `before-implementation-1.png`, `before-implementation-2.png`, `after-implementation-1.png`, and `after-implementation-2.png`. Record videos of important flows before and after when interaction, navigation, animation, or multi-step UI state is part of the work, and save them under `plans/<name-of-plan>/recordings/` with matching before/after names. After implementation, compare the before-and-after screenshots and recordings, identify regressions, fixes, and quality-of-life improvements, and either make the in-scope corrections or record the remaining follow-up clearly in the ExecPlan. The final review must include the professional UI/UX pass defined in `DESIGN.md`: judge the result against product-quality usability, hierarchy, responsive layout, accessibility-visible, interaction-state, copy, and workflow standards, then fix in-scope issues before calling the plan complete.
 
+When an ExecPlan adds or changes code, it must end with a code-file line-count review. Include an explicit final step in `Progress` and `Concrete Steps` to check line counts for hand-written code files, excluding generated files, lockfiles, vendored dependencies, dependency directories, and build output. Use the strong `CODESTYLE.md` preference that hand-written code files stay below 600 lines. If any file exceeds 600 lines, or is close enough that the next likely change will push it over that preference, record the path, line count, and likely cause in `Outcomes & Retrospective`. Suggest a concrete next action, such as a responsibility-based split, fixture move, helper extraction, library addition, or documented exception. Do not automatically perform that extra split, refactor, or library addition unless the user approves it or the accepted ExecPlan already included that work.
+
 When discussing an executable specification (ExecPlan), record decisions in a log in the spec for posterity; it should be unambiguously clear why any change to the specification was made. ExecPlans are living documents, and it should always be possible to restart from _only_ the ExecPlan and no other work.
 
 When researching a design with challenging requirements or significant unknowns, use milestones to implement proof of concepts, "toy implementations", etc., that allow validating whether the user's proposal is feasible. Read the source code of libraries by finding or acquiring them, research deeply, and include prototypes to guide a fuller implementation.
@@ -32,6 +34,7 @@ NON-NEGOTIABLE REQUIREMENTS:
 * Every ExecPlan must produce a demonstrably working behavior, not merely code changes to "meet a definition".
 * Every ExecPlan must define every term of art in plain language or do not use it.
 * Every ExecPlan that can affect frontend presentation must define the before-and-after screenshot and video evidence it will capture, include explicit before-implementation and after-implementation screenshot steps in `Progress` and `Concrete Steps`, name the viewports or devices it will cover, name the `plans/<name-of-plan>/screenshots/` and `plans/<name-of-plan>/recordings/` artifact paths it will use, and explain how the final comparison will be reviewed for regressions, quality-of-life fixes, and the professional UI/UX pass required by `DESIGN.md`.
+* Every ExecPlan that adds or changes code must include a final line-count review for hand-written code files, apply the 600-line preference from `CODESTYLE.md`, and require user approval before implementing any unplanned split, refactor, or library addition discovered by that review.
 
 Purpose and intent come first. Begin by explaining, in a few sentences, why the work matters from a user's perspective: what someone can do after this change that they could not do before, and how to see it working. Then guide the reader through the exact steps to achieve that outcome, including what to edit, what to run, and what they should observe.
 
@@ -62,6 +65,12 @@ Be idempotent and safe. Write the steps so they can be run multiple times withou
 Validation is not optional. Include instructions to run tests, to start the system if applicable, and to observe it doing something useful. Describe comprehensive testing for any new features or capabilities. Include expected outputs and error messages so a novice can tell success from failure. Where possible, show how to prove that the change is effective beyond compilation (for example, through a small end-to-end scenario, a CLI invocation, or an HTTP request/response transcript). State the exact test commands appropriate to the project’s toolchain and how to interpret their results.
 
 For any ExecPlan that affects frontend presentation, validation must include visual review. Start the app, use `agent-browser` to capture baseline screenshots and videos before making UI-affecting changes, then capture matching after screenshots and videos once the plan is implemented. These captures must appear as concrete execution steps in the plan: the before step comes before implementation edits, and the after step comes after implementation but before final acceptance. Cover multiple resolutions, including desktop and mobile, and name the exact viewport sizes or device presets in the plan. Save screenshots under `plans/<name-of-plan>/screenshots/` as `before-implementation-1.<extension>`, `before-implementation-2.<extension>`, `after-implementation-1.<extension>`, and so on; use the same numbering to pair comparable before and after views. Compare the before-and-after evidence directly. Then run the professional UI/UX review pass required by `DESIGN.md`, checking the result for clear hierarchy, responsive behavior, accessible interaction states, polished spacing and typography, practical workflow ergonomics, and broken or confusing states. The plan must say what regressions were found, what fixes or quality-of-life improvements were made as a result, what professional UX concerns remain out of scope, and why those concerns were deferred. If no runnable visual target exists, the plan must state why screenshots or videos cannot be captured and what alternative proof is sufficient.
+
+For any ExecPlan that adds or changes code, validation must include a final line-count review for hand-written code files. Tailor the command to the project's language set and exclude generated, lock, vendored, dependency, and build-output files. For a typical JavaScript, TypeScript, Python, shell, CSS, and HTML project, a useful starting point is:
+
+    rg --files src tests scripts 2>/dev/null | grep -E '\.(ts|tsx|js|jsx|py|sh|css|html)$' | xargs -r wc -l | sort -n
+
+If a hand-written code file exceeds 600 lines, the ExecPlan should not silently expand scope to fix it. It should report the file and line count, suggest the most maintainable response, and ask the user to approve that extra work before implementation unless the plan already included the split or refactor.
 
 Documentation changes that are part of the feature are also subject to validation. If the ExecPlan includes updates to `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, `ARCHITECTURE.md`, or another in-scope root-level `ALLCAPS.md` file, specify what a reviewer should check to confirm those files match the implemented behavior and remain consistent with the code layout and user-visible result.
 
@@ -111,6 +120,8 @@ Prefer additive code changes followed by subtractions that keep tests passing. P
 
     When visual evidence applies, include explicit entries for capturing the before screenshots before implementation, capturing the matching after screenshots after implementation, and comparing them during the UI/UX review.
 
+    When the plan adds or changes code, include a final entry for checking hand-written code-file line counts and reporting any files over the 600-line preference before proposing user-approved follow-up work.
+
     Use timestamps to measure rates of progress.
 
     ## Surprises & Discoveries
@@ -132,6 +143,8 @@ Prefer additive code changes followed by subtractions that keep tests passing. P
 
     Summarize outcomes, gaps, and lessons learned at major milestones or at completion. Compare the result against the original purpose.
 
+    For a code-changing plan, include the final hand-written code-file line-count result. If any file exceeds 600 lines, name the file, line count, recommended response, and whether the user approved, deferred, or rejected extra refactor work.
+
     ## Context and Orientation
 
     Describe the current state relevant to this task as if the reader knows nothing. Name the key files and modules by full path. Define any non-obvious term you will use. Do not refer to prior plans. If `PRODUCT.md`, `ROADMAP.md`, `CODESTYLE.md`, `DESIGN.md`, `ARCHITECTURE.md`, or another root-level `ALLCAPS.md` file constrains this work, summarize the relevant guidance here and cite their repository-relative paths.
@@ -143,6 +156,8 @@ Prefer additive code changes followed by subtractions that keep tests passing. P
     ## Concrete Steps
 
     State the exact commands to run and where to run them (working directory). When a command generates output, show a short expected transcript so the reader can compare. This section must be updated as work proceeds. For any plan that can affect frontend presentation, include the before screenshot commands before implementation edits and the after screenshot commands after implementation but before final acceptance.
+
+    For any plan that adds or changes code, end this section with a project-specific command that checks line counts for hand-written code files and excludes generated files, lockfiles, vendored dependencies, dependency directories, and build output. State that files over 600 lines should be reported with a recommendation, and that unplanned refactors, code splits, or library additions require user approval before implementation.
 
     ## Validation and Acceptance
 

@@ -1,6 +1,6 @@
 # Code Style
 
-Use this document as the durable source of truth for code conventions in this template and in future projects derived from it. It covers source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
+Use this document as the durable source of truth for code conventions in this template and in future projects derived from it. It covers source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations.
 
 Update this file when the project adopts a formatter, linter, language-specific style rule, naming convention, documentation convention, or commenting standard that future contributors must follow.
 
@@ -13,6 +13,7 @@ When an ecosystem has a strong convention that conflicts with this file, prefer 
 ## General Source Style
 
 - Keep functions small enough that their purpose and control flow are easy to review.
+- Keep hand-written code files below 600 lines whenever practical. Treat this as a strong maintainability preference, not a hard limit for generated files, lockfiles, vendored dependencies, or framework-required manifests.
 - Prefer explicit, descriptive names over abbreviations. A new contributor should understand what a variable, function, file, or module owns without reading every caller first.
 - Use 4 spaces for code indentation unless the language ecosystem strongly prefers another width. Use 2 spaces for Markdown, YAML, JSON, TOML, and similar structured files.
 - Put runtime code in `src/`, mirror tests in `tests/`, and keep static assets in `assets/` when they are needed.
@@ -21,6 +22,14 @@ When an ecosystem has a strong convention that conflicts with this file, prefer 
 - Name ExecPlans under `plans/` with the ordered `NN-kebab-case-name.md` pattern described in `PLANS.md`.
 - In TypeScript files, add explicit type annotations for variables, including locals, constants, and intermediate values, unless the annotation would duplicate generated types verbatim or make the code less clear.
 - If you add a formatter or linter, run it before review and document the canonical command in `README.md` and `AGENTS.md`.
+
+## File Size and Modularity
+
+Keep each hand-written code file below 600 lines whenever practical. Long files are harder for humans and agents to review, summarize, and safely change. The right response is not automatic slicing; split only when a real responsibility boundary, test boundary, or reusable abstraction makes the code easier to understand.
+
+Generated files, lockfiles, vendored dependencies, build output, and framework-owned manifests may exceed 600 lines. For hand-written source, tests, scripts, and code-bearing configuration, treat any file above 600 lines as a refactor signal that needs a conscious decision.
+
+At the end of substantial code changes, check line counts for hand-written code files. If a file exceeds 600 lines, or is close enough that the next likely change will push it over the preference, summarize the file path, line count, and likely cause. Suggest one or more concrete options such as splitting by responsibility, moving fixtures or tests, extracting a shared helper, introducing a well-supported library, or accepting a documented exception. Do not perform that extra split, refactor, or library addition unless the user approves it or the accepted ExecPlan already included that work.
 
 ## Commenting Standard
 
@@ -108,7 +117,7 @@ Keep documentation in the file that owns the relevant truth:
 - `ARCHITECTURE.md` describes stable structure, ownership, boundaries, and invariants.
 - `README.md` describes onboarding, commands, repository layout, and user-facing project context.
 - `PLANS.md` describes how ExecPlans must be written and maintained.
-- `CODESTYLE.md` describes code conventions and commenting standards.
+- `CODESTYLE.md` describes code conventions, commenting standards, and code-file size expectations.
 - `AGENTS.md` describes repository-specific instructions for coding agents.
 
 Reserve new root-level `ALLCAPS.md` files for durable guidance or control documents, not scratch notes or one-off design dumps. When a new root control document is introduced, update `AGENTS.md`, `PLANS.md`, and any root document inventory that future contributors rely on.

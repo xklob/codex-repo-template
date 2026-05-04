@@ -96,7 +96,7 @@ Update the root control documents together so they agree:
 - `README.md`: project identity, purpose, setup commands, validation commands, repository layout, and how contributors should start work after bootstrap.
 - `PRODUCT.md`: current user-visible truth, current workflows, current limits, and non-goals.
 - `ROADMAP.md`: intended future state, strategic principles, near-term priorities, later opportunities, and explicit non-priorities.
-- `CODESTYLE.md`: language-specific conventions, formatter/linter expectations, TypeScript annotation rules if relevant, documentation style, and commenting standards.
+- `CODESTYLE.md`: language-specific conventions, formatter/linter expectations, TypeScript annotation rules if relevant, documentation style, commenting standards, and code-file size expectations.
 - `DESIGN.md`: project-specific visual and interaction language if the product has or will have a UI.
 - `ARCHITECTURE.md`: intended code layout, boundaries, dependencies, configuration ownership, and extension points.
 - `AGENTS.md`: repository-specific agent instructions, validation commands, visual-review requirements, and any project-specific skill guidance.
@@ -139,6 +139,7 @@ The ExecPlan must be self-contained and must not assume the reader remembers the
 - validation and acceptance criteria
 - required control-document updates
 - visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation, including explicit `Progress` and `Concrete Steps` entries for baseline screenshots before implementation and matching screenshots after implementation
+- a final code-file line-count review when the planned work adds or changes code, applying the 600-line preference from `CODESTYLE.md` and requiring user approval before any unplanned split, refactor, or library addition
 - open questions and deferred decisions
 
 Do not execute the implementation steps in that ExecPlan unless the user explicitly asks in a later request.

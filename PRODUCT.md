@@ -58,11 +58,11 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 ### Ordered ExecPlan Guidance
 
-`Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context. UI-affecting ExecPlans must make baseline screenshot capture and after-implementation screenshot capture explicit execution steps, not only final validation notes.
+`Core`: The template instructs contributors to save substantial-work plans under `plans/` with two-digit ordered filename prefixes, such as `00-add-feature-x.md` and `01-security-overhaul.md`. The ordering rule keeps multiple active or historical ExecPlans easy to scan without relying on chat history or issue context. UI-affecting ExecPlans must make baseline screenshot capture and after-implementation screenshot capture explicit execution steps, not only final validation notes. Code-changing ExecPlans must end with a hand-written code-file line-count review and require user approval before any extra split, refactor, or library addition discovered by that review is implemented.
 
 ### Code Convention Expectations
 
-`Core`: The template includes `CODESTYLE.md` as the canonical source for code conventions and strict commenting standards. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories, and other documents should point to `CODESTYLE.md` instead of duplicating detailed style rules.
+`Core`: The template includes `CODESTYLE.md` as the canonical source for code conventions and strict commenting standards. It also records the strong preference that hand-written code files stay below 600 lines, with larger files treated as a review signal for a user-approved refactor, split, library addition, or documented exception. This expectation is part of the current agent-assisted workflow and review standard for template-derived repositories, and other documents should point to `CODESTYLE.md` instead of duplicating detailed style rules.
 
 ### Professional UI/UX Review Expectations
 
@@ -86,7 +86,7 @@ Focus on the workflows that are actually available now. If a workflow is partial
 
 ### Agent-Assisted Repository Work
 
-A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. If the work can affect frontend presentation, the plan includes explicit steps for capturing baseline screenshots before implementation and matching screenshots after implementation. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
+A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. If the work can affect frontend presentation, the plan includes explicit steps for capturing baseline screenshots before implementation and matching screenshots after implementation. If the work changes code, the plan ends with a hand-written code-file line-count review using the 600-line preference in `CODESTYLE.md`; any extra split, refactor, or library addition discovered by that review waits for user approval unless it was already in the accepted plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
 ### Template-To-Project Bootstrap
 
@@ -127,7 +127,7 @@ Use this file together with the other root documents:
 
 - `README.md` explains what the repository is, how to run it, and how to contribute.
 - `ROADMAP.md` explains the intended future direction, planned capabilities, and strategic priorities.
-- `CODESTYLE.md` explains source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
+- `CODESTYLE.md` explains source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations.
 - `DESIGN.md` explains how the product should look and feel.
 - `ARCHITECTURE.md` explains how the system is structured internally.
 - `PLANS.md` explains how substantial changes should be planned and executed.

@@ -40,8 +40,8 @@ The current repository is mostly documentation by design. Each root document has
 - `PRODUCT.md` captures the current user-visible product state, workflows, capability boundaries, and important limitations.
 - `ROADMAP.md` captures the intended product direction, planned capabilities, strategic priorities, and explicit non-priorities.
 - `AGENTS.md` contains repository-specific instructions for coding agents working in this repo.
-- `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work, including explicit before-and-after screenshot steps for UI-affecting plans.
-- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, and strict commenting standards.
+- `PLANS.md` defines the ExecPlan format and the rules for using ordered execution plans on complex work, including explicit before-and-after screenshot steps for UI-affecting plans and final code-file line-count checks for code-changing plans.
+- `CODESTYLE.md` defines source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and the strong preference to keep hand-written code files below 600 lines.
 - `DESIGN.md` is the durable design-language reference for the product, including the professional UI/UX review pass required for UI-affecting ExecPlan work.
 - `ARCHITECTURE.md` is the durable architectural map for the system.
 - `.codex/config.toml` sets project-scoped Codex defaults. The current template pins trusted Codex sessions to `gpt-5.5`.
@@ -67,7 +67,7 @@ This template treats the root documentation as project control documents:
 - `PRODUCT.md` keeps the current product truth explicit, especially for small and medium user-visible changes that may not get their own ExecPlan.
 - `ROADMAP.md` keeps intended future direction explicit so contributors can distinguish current behavior from planned behavior.
 - `PLANS.md` ensures larger changes are driven by self-contained execution plans.
-- `CODESTYLE.md` keeps source conventions and commenting standards explicit.
+- `CODESTYLE.md` keeps source conventions, commenting standards, and code-file size expectations explicit.
 - `DESIGN.md` captures stable product and interface language.
 - `ARCHITECTURE.md` captures stable system boundaries and invariants.
 - `AGENTS.md` tells coding agents how to behave in this specific repository.
@@ -85,14 +85,14 @@ Start by turning the template into the real project you want to build.
 5. Let the skill install only the approved frameworks or packages needed for the initial toolchain; do not use it to implement product feature code.
 6. Continue from the ordered ExecPlan that the skill creates under `plans/`, then add runtime code under `src/` and mirror tests under `tests/`.
 7. Document the canonical development and test commands in `README.md` as soon as you introduce them.
-8. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order. When a plan can affect frontend presentation, include separate before-screenshot and after-screenshot steps in the plan itself.
+8. Use ExecPlans for complex features, significant refactors, or work with meaningful ambiguity. Save each new plan under `plans/` with the next two-digit prefix, such as `00-add-feature-x.md`, so plans sort in creation order. When a plan can affect frontend presentation, include separate before-screenshot and after-screenshot steps in the plan itself. When a plan adds or changes code, end it with a hand-written code-file line-count check and ask for approval before doing any extra split, refactor, or library addition that the check suggests.
 
 In practice, the first pass through the template usually looks like this:
 
 - name the product and describe the user problem in `README.md`
 - describe the product's current workflows and capabilities in `PRODUCT.md`
 - describe the intended future direction and planned capabilities in `ROADMAP.md`
-- adjust code conventions and commenting standards in `CODESTYLE.md`
+- adjust code conventions, commenting standards, and code-file size expectations in `CODESTYLE.md`
 - describe the visual and interaction direction in `DESIGN.md`
 - describe the codebase shape and boundaries in `ARCHITECTURE.md`
 - add the initial toolchain and document its commands
@@ -132,6 +132,7 @@ To keep that working:
 - update `ROADMAP.md` when long-lived product direction, priorities, or intended future capabilities change
 - document new commands when you add a toolchain
 - update `CODESTYLE.md` when source conventions, naming rules, TypeScript annotation expectations, documentation conventions, or commenting standards change
+- keep hand-written code files below 600 lines whenever practical, and treat larger files as a reason to recommend a user-approved split, refactor, library addition, or documented exception
 - update `DESIGN.md` when stable design language changes
 - update `ARCHITECTURE.md` when structure, ownership, or invariants change
 - keep implementation work observable through tests, commands, or clear acceptance criteria
@@ -189,13 +190,14 @@ Once you introduce a real toolchain, replace this section with the canonical com
 
 - Keep runtime code in `src/`.
 - Mirror tests under `tests/`.
-- Follow `CODESTYLE.md` for source formatting, naming, TypeScript annotation expectations, and strict commenting standards.
+- Follow `CODESTYLE.md` for source formatting, naming, TypeScript annotation expectations, strict commenting standards, and code-file size expectations.
+- Keep hand-written code files below 600 lines whenever practical; recommend user-approved refactors, code splits, library additions, or documented exceptions when files exceed that preference.
 - Keep static assets in `assets/` when needed.
 - Use `.agents/skills/project-bootstrap/SKILL.md` for the first project-specific customization pass after cloning.
 - Keep `PRODUCT.md` in sync with current user-visible behavior and scope.
 - Keep `ROADMAP.md` in sync with durable product direction and priorities.
 - Treat root-level `ALLCAPS.md` files as durable project guidance, not scratch notes.
-- Use ordered ExecPlan filenames for complex features and significant refactors, following the `plans/NN-kebab-case-name.md` convention in `PLANS.md`; UI-affecting plans should also include explicit before-and-after screenshot steps.
+- Use ordered ExecPlan filenames for complex features and significant refactors, following the `plans/NN-kebab-case-name.md` convention in `PLANS.md`; UI-affecting plans should also include explicit before-and-after screenshot steps, and code-changing plans should end with a code-file line-count review.
 - Keep the repository easy for a new human or agent to understand without hidden context.
 - Keep the project-scoped Codex model default in `.codex/config.toml` unless a deliberate model migration updates the relevant docs at the same time.
 
@@ -208,7 +210,7 @@ Before calling a project based on this template "ready," make sure you have done
 - described the actual product and intended users in this README
 - described the current capabilities and workflows in `PRODUCT.md`
 - described the intended direction and near-term priorities in `ROADMAP.md`
-- confirmed that `CODESTYLE.md` matches the code conventions and commenting standards you want contributors to follow
+- confirmed that `CODESTYLE.md` matches the code conventions, commenting standards, and code-file size expectations you want contributors to follow
 - documented the initial toolchain and test command
 - installed only the frameworks and packages that are needed for the confirmed initial setup
 - created an ordered initial setup ExecPlan under `plans/`
