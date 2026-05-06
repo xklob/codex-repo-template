@@ -32,9 +32,9 @@ Suggested shape:
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
 - `CODESTYLE.md` - Owns source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations for template-derived code.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
-- `.agents/skills/` - Owns repo-local agent workflows. `project-bootstrap` guides the first template-to-project customization pass, `ask-questions-if-underspecified` protects unclear work from premature implementation, `agent-browser` points agents to version-matched browser automation guidance, and `review-ui-screenshots` defines the deliberate post-capture UX inspection pass for UI evidence.
-- `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created. UI-affecting plans also reserve `plans/<name-of-plan>/screenshots/` for explicit before-and-after screenshot steps and should name the screenshot UX review step, while code-changing plans end with a hand-written code-file line-count review.
-- `scripts/` - Stores portable contributor utilities that should work from any clone in the expected environment. `scripts/win-screenshot` captures the full Windows desktop from Windows 11 with WSL by invoking Windows PowerShell and the Win32 desktop capture APIs.
+- `.agents/skills/` - Owns repo-local agent workflows. `project-bootstrap` guides the first template-to-project customization pass, `ask-questions-if-underspecified` protects unclear work from premature implementation, `agent-browser` points agents to version-matched browser automation guidance, `review-ui-screenshots` defines the deliberate post-capture UX inspection pass for UI evidence, and `ui-mockups` defines the pre-implementation workflow for generating selectable Stitch-backed UI mockup options.
+- `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created. UI-affecting plans also reserve `plans/<name-of-plan>/screenshots/` for explicit before-and-after screenshot steps, `plans/<name-of-plan>/mockups/` for optional pre-implementation mockup options, and should name the screenshot UX review step, while code-changing plans end with a hand-written code-file line-count review.
+- `scripts/` - Stores portable contributor utilities that should work from any clone in the expected environment. `scripts/win-screenshot` captures the full Windows desktop from Windows 11 with WSL by invoking Windows PowerShell and the Win32 desktop capture APIs. `scripts/stitch-mockups.mjs` and its helper modules under `scripts/stitch-mockups/` generate Google Stitch mockup options and local reference-style summaries for active ExecPlans.
 - `tests/` - Mirrors `src/` and verifies ...
 - `assets/` - Stores static assets used by ...
 
@@ -62,6 +62,12 @@ Template bootstrap flow:
 2. The skill instructs the agent to inspect the current clone, gather the product brief, challenge risky choices, and confirm the bootstrap scope.
 3. The agent updates root control documents and installs approved setup tooling without implementing product feature code.
 4. The agent writes the next ordered ExecPlan under `plans/` so the first implementation slice can proceed from repository context instead of chat history; if the planned work can affect frontend presentation, the plan includes explicit baseline screenshot capture, after-implementation screenshot capture, and screenshot UX review steps.
+
+UI mockup selection flow:
+1. A contributor planning meaningful UI work invokes `.agents/skills/ui-mockups/SKILL.md` while authoring or refining an ExecPlan.
+2. The skill instructs the agent to read `DESIGN.md`, the active plan, and any supplied local reference image or Stitch export bundle.
+3. The agent runs `npm run stitch:mockups` with `STITCH_API_KEY` or OAuth-based Stitch credentials. The script copies approved local reference artifacts, extracts style signals with Cheerio and css-tree, calls Google Stitch through `@google/stitch-sdk`, and writes option artifacts under `plans/<plan-stem>/mockups/`.
+4. The agent presents the generated options to the user, waits for a selected or hybrid direction, then records that decision in the plan before implementation begins.
 
 ## Architectural Invariants
 
@@ -113,6 +119,8 @@ Only include the concerns that materially shape the project.
 
 Codex-specific defaults live in `.codex/config.toml`. Keep this file limited to project-scoped agent configuration; do not use it as an application configuration file once runtime code exists.
 
+Stitch mockup generation reads `STITCH_API_KEY`, or `STITCH_ACCESS_TOKEN` with `GOOGLE_CLOUD_PROJECT`, from the local environment. `.env.example` documents the variable names, but real credentials must stay untracked.
+
 ## How To Extend The System Safely
 
 Give a new contributor a short playbook for common changes.
@@ -127,6 +135,7 @@ Template prompts:
 - To add or change repo-local agent workflows, keep them under `.agents/skills/`, make the frontmatter trigger description specific, and update `README.md`, `PRODUCT.md`, `ARCHITECTURE.md`, and `AGENTS.md` when the workflow changes how contributors use the template.
 - To change source conventions or commenting standards, update `CODESTYLE.md` and remove duplicated wording from other control documents.
 - To add or change portable contributor tools, keep them under `scripts/`, document their environment assumptions in `README.md` and `AGENTS.md`, and validate them from a fresh repository-relative command when practical.
+- To generate pre-implementation UI mockups, create or continue the relevant ExecPlan, use `.agents/skills/ui-mockups/SKILL.md`, run `npm run stitch:mockups`, save artifacts under `plans/<plan-stem>/mockups/`, and record the user's selected direction before editing UI code.
 
 If there are common mistakes, name them explicitly.
 

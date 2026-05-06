@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentStudio - Project Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#060e20",
+                    "on-secondary-fixed-variant": "#004c6e",
+                    "secondary": "#89ceff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "inverse-on-surface": "#283044",
+                    "outline-variant": "#464555",
+                    "background": "#0b1326",
+                    "on-error": "#690005",
+                    "secondary-fixed": "#c9e6ff",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-dim": "#0b1326",
+                    "on-secondary": "#00344d",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "primary-fixed": "#e2dfff",
+                    "on-background": "#dae2fd",
+                    "surface-tint": "#c3c0ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-secondary-container": "#00344e",
+                    "on-tertiary": "#571f00",
+                    "surface-container-highest": "#2d3449",
+                    "inverse-surface": "#dae2fd",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#dad7ff",
+                    "outline": "#918fa1",
+                    "on-surface": "#dae2fd",
+                    "primary-container": "#4f46e5",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-variant": "#2d3449",
+                    "secondary-container": "#00a2e6",
+                    "on-primary": "#1d00a5",
+                    "surface-bright": "#31394d",
+                    "inverse-primary": "#4d44e3",
+                    "surface-container": "#171f33",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#222a3d",
+                    "on-surface-variant": "#c7c4d8",
+                    "tertiary": "#ffb695",
+                    "on-secondary-fixed": "#001e2f",
+                    "tertiary-fixed": "#ffdbcc",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "tertiary-container": "#a44100",
+                    "error": "#ffb4ab",
+                    "surface": "#0b1326",
+                    "secondary-fixed-dim": "#89ceff",
+                    "primary": "#c3c0ff",
+                    "surface-container-low": "#131b2e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "base": "8px",
+                    "unit": "4px",
+                    "stack-default": "12px",
+                    "container-padding": "24px",
+                    "stack-compact": "4px"
+            },
+            "fontFamily": {
+                    "h2": ["Inter"],
+                    "code": ["monospace"],
+                    "body-sm": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h3": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "h2": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "h1": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h3": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-gutter h-16 bg-surface-container-low dark:bg-surface-container-lowest border-b border-outline-variant dark:border-outline-variant/50">
+<div class="flex items-center gap-base">
+<span class="font-h1 text-h1 text-primary dark:text-primary-fixed-dim">AgentStudio</span>
+<div class="ml-8 flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors active:scale-95 duration-100" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors active:scale-95 duration-100" href="#">Projects</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors active:scale-95 duration-100" href="#">Agents</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary pb-1 active:scale-95 duration-100" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-h3 text-h3 flex items-center gap-2 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                Generate UI Mockups
+            </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline">
+<img alt="User profile" data-alt="A professional headshot of a software engineer in a high-tech office environment. The lighting is low-key with cool blue ambient tones and sharp highlights from monitor screens. The style is modern corporate minimalism with a focus on precision and technical expertise, matching the dark mode dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC0k8Y9FV7SsQXhK8HnIY7DN9ZsRC6UJSXfhnkUnoBEERwQmglKhqSYTRPsdkAtfO2gQlbwmAAX5L3Q7CzUGyDiXOTvPXSPOq7CXAp2gcpy09HtG4eh4i6xO5efOpvz2wf9iqDITAHfv0J6vo1MYWmj0uni-LrpabP-skaLt3W5XxVTBDBLqZiep-dzDV00ehidAsfHV_60VXxizhPmq5vYmixnPMR-j9dRB9tWr1ccYGhSRXsi_hVHZq_GyEyfV71dwrIes3aDhRa"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col p-stack-default bg-surface-container dark:bg-surface-dim border-r border-outline-variant dark:border-outline-variant/30">
+<div class="flex flex-col gap-4 mb-8 p-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</div>
+<div>
+<h2 class="font-h2 text-h2 text-on-surface">Project Alpha</h2>
+<p class="font-label-caps text-label-caps opacity-70">Active Agent: v2.4</p>
+</div>
+</div>
+<button class="w-full bg-surface-variant py-2 rounded-lg font-body-md text-body-md hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="person_add">person_add</span>
+                Invite Member
+            </button>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">General</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="source_control">source_environment</span>
+<span class="font-body-md text-body-md">Repository</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md text-body-md">Skills</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-body-md text-body-md">Commands</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span class="font-body-md text-body-md">Security</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md text-body-md">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-body-md text-body-md">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-container-padding max-w-5xl mx-auto">
+<header class="mb-8">
+<h1 class="font-h1 text-h1 text-on-surface">Project Settings</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configure your agent's technical environment and operational capabilities.</p>
+</header>
+<div class="space-y-stack-default">
+<!-- Repository Status Section -->
+<section class="bg-surface-container p-gutter rounded-lg border border-outline-variant/40">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="source_control">source_environment</span>
+<h3 class="font-h3 text-h3 text-on-surface">Repository Status</h3>
+</div>
+<button class="bg-surface-variant px-3 py-1.5 rounded text-body-sm font-h3 flex items-center gap-2 border border-outline-variant/60 hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="sync">sync</span>
+                        Sync Now
+                    </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant/30">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Connected Repo</p>
+<p class="font-code text-code text-secondary flex items-center gap-2">
+                            github.com/agent-studio/v4-core
+                        </p>
+</div>
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant/30">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Active Branch</p>
+<p class="font-code text-code text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="account_tree">account_tree</span>
+                            production/stable-v2
+                        </p>
+</div>
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant/30">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Last Sync</p>
+<p class="font-code text-code text-on-surface">2 minutes ago</p>
+</div>
+</div>
+</section>
+<!-- Agent Skills Section -->
+<section class="bg-surface-container p-gutter rounded-lg border border-outline-variant/40">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+<h3 class="font-h3 text-h3 text-on-surface">Agent Skills</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Skill Item 1 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-outline transition-all group">
+<div class="flex-1">
+<h4 class="font-h3 text-h3 text-on-surface mb-1">UI Design</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Generates high-fidelity mockups using brand anchor JSON and style guides.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</div>
+<!-- Skill Item 2 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-outline transition-all group">
+<div class="flex-1">
+<h4 class="font-h3 text-h3 text-on-surface mb-1">Data Analysis</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Analyzes complex JSON datasets and suggests structural optimizations.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</div>
+<!-- Skill Item 3 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-outline transition-all group">
+<div class="flex-1">
+<h4 class="font-h3 text-h3 text-on-surface mb-1">Code Review</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Performs automated audits of PRs based on the project's validation rules.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</div>
+<!-- Skill Item 4 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-outline transition-all group">
+<div class="flex-1">
+<h4 class="font-h3 text-h3 text-on-surface mb-1">Security Audit</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Monitors repository dependencies for known vulnerabilities and CVEs.</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Validation Commands Section -->
+<section class="bg-surface-container p-gutter rounded-lg border border-outline-variant/40">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+<h3 class="font-h3 text-h3 text-on-surface">Validation Commands</h3>
+</div>
+<button class="text-primary font-h3 text-body-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Add Command
+                    </button>
+</div>
+<div class="space-y-2 bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/20 font-code text-code overflow-hidden">
+<div class="flex items-center group">
+<span class="text-on-surface-variant/40 mr-4 select-none">01</span>
+<span class="text-secondary">npm</span>
+<span class="text-on-surface ml-2">run lint -- --fix</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex items-center group">
+<span class="text-on-surface-variant/40 mr-4 select-none">02</span>
+<span class="text-secondary">jest</span>
+<span class="text-on-surface ml-2">--coverage --maxWorkers=50%</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex items-center group">
+<span class="text-on-surface-variant/40 mr-4 select-none">03</span>
+<span class="text-secondary">npx</span>
+<span class="text-on-surface ml-2">prettier --check .</span>
+<button class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex items-center group opacity-50 italic">
+<span class="text-on-surface-variant/40 mr-4 select-none">04</span>
+<span class="text-on-surface-variant"># Add your custom validation script here...</span>
+</div>
+</div>
+<div class="mt-4 p-4 border-t border-outline-variant/30 flex justify-end gap-3">
+<button class="px-4 py-2 text-body-md font-h3 text-on-surface-variant hover:text-on-surface">Discard Changes</button>
+<button class="px-6 py-2 bg-primary-container text-on-primary-container rounded font-h3 hover:brightness-110 active:scale-95 transition-all">Save Project Configuration</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Project Visual Context -->
+<div class="fixed bottom-gutter right-gutter w-72 h-40 rounded-xl overflow-hidden border border-outline-variant/50 shadow-2xl group cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10"></div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A cinematic close-up of high-performance server hardware with pulsing blue fiber optic lights and intricate circuit patterns. The scene is set in a secure, dark data center with a focus on technical reliability and massive computational power. The aesthetic is clean and futuristic, aligning with a professional engineering tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPsNujNiiEPqkuyYvk6xBIp1vnmHp_cagLqwXWm0D-3-F-nwo7YIEG_YLQ5ieVE_YJfoNj87xAMa5zWrO9FEqguRGjld_avaVrynpeg-wftJgV3rvcem3L6BvY3eom9KPhRRF_GNcFCUk_tuBimpnn2mcsWeZxxa0JVqe0d0MwDs5w1uCncJrZif8KfIH0liAG3iUDa4nDwwbALOsHsRqytmKdyUjGkj12fJhFXEQjgd4hTVbdxo6-7O9OZ3qgs7rh3UWJLuum-NhL"/>
+<div class="absolute bottom-3 left-3 z-20">
+<p class="font-label-caps text-label-caps text-primary">Live Context</p>
+<p class="font-body-sm text-body-sm text-on-surface">Compute Cluster Node 04</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Mockups"
+  short_description: "Generate selectable UI mockups before implementation."
+  default_prompt: "Use the UI mockups skill to create several design options for this UI change, then wait for my selection before implementation."

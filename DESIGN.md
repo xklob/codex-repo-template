@@ -190,7 +190,30 @@ viewports, interaction states, findings, fixes, and deferred concerns. If no
 runnable visual target exists, state that the professional UI/UX pass is not
 applicable and explain what validation replaced it.
 
-## 8. Prompting Notes
+## 8. Pre-Implementation UI Mockups
+
+For substantial UI additions, UI refactors, major responsive/layout changes, or
+new design directions, use `.agents/skills/ui-mockups/SKILL.md` during planning
+before implementation begins. This workflow creates several Google
+Stitch-backed mockup options under `plans/<plan-stem>/mockups/` so the user can
+choose a direction before UI code is written.
+
+When a supplied sample is available, treat it as a style reference by default.
+The sample may be a local image or a local Google Stitch export bundle with PNG
+and HTML/CSS artifacts. Copy approved samples into
+`plans/<plan-stem>/mockups/reference/` only after confirming they contain no
+secrets or restricted third-party material. Use the sample to preserve design
+language: palette, typography, spacing rhythm, density, corner radius, shadows,
+icon feel, and component treatment. Do not copy the sample's layout or content
+unless the user explicitly requests that.
+
+The selected mockup direction should be recorded in the ExecPlan before
+implementation starts. This does not replace the professional UI/UX review pass
+above. After implementation, still capture before/after screenshots and review
+the rendered result with `.agents/skills/review-ui-screenshots/SKILL.md` when a
+runnable visual target exists.
+
+## 9. Prompting Notes
 
 Capture short phrases that future contributors can reuse when asking an AI tool to extend the interface.
 
@@ -208,7 +231,7 @@ Capture short phrases that future contributors can reuse when asking an AI tool 
 - Avoid:
 - Avoid:
 
-## 9. Open Questions
+## 10. Open Questions
 
 Track unresolved design decisions that are stable enough to deserve visibility but not yet settled.
 

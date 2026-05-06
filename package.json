@@ -1,5 +1,15 @@
 {
+  "scripts": {
+    "stitch:mockups": "node scripts/stitch-mockups.mjs",
+    "test": "node --test \"tests/**/*.test.mjs\""
+  },
   "dependencies": {
-    "agent-browser": "^0.26.0"
+    "@google/stitch-sdk": "^0.1.1",
+    "agent-browser": "^0.26.0",
+    "cheerio": "^1.2.0",
+    "css-tree": "^3.2.1"
+  },
+  "overrides": {
+    "ip-address": "^10.2.0"
   }
 }

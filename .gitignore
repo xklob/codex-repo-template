@@ -1,2 +1,7 @@
 # Installed package dependencies are local build artifacts.
 node_modules/
+
+# Local environment files may contain API keys or OAuth tokens.
+.env
+.env.*
+!.env.example
