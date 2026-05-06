@@ -17,6 +17,7 @@ After this change, a contributor planning a meaningful UI addition or refactor c
 - [x] (2026-05-06T05:29Z) Add the repo-local `ui-mockups` skill and synchronize root control documents.
 - [x] (2026-05-06T05:29Z) Run validation, including tests, syntax checks, `git diff --check`, npm audit, skill validation, and final hand-written code-file line-count review.
 - [x] (2026-05-06T05:46Z) Address PR review feedback by preserving reference-bundle relative paths, copying local linked stylesheets for standalone HTML references, normalizing stylesheet query strings during extraction, and adding regression tests.
+- [x] (2026-05-06T05:55Z) Run a live Google Stitch smoke test with credentials from `.env` and add the generated mockup artifacts under `plans/00-add-stitch-ui-mockups/mockups/`.
 
 ## Surprises & Discoveries
 
@@ -55,7 +56,7 @@ Validation passed:
     git diff --check
     rg -n "ui-mockups|stitch:mockups|STITCH_API_KEY|reference-style|@google/stitch-sdk" README.md PRODUCT.md ROADMAP.md ARCHITECTURE.md AGENTS.md PLANS.md DESIGN.md .agents/skills/ui-mockups/SKILL.md package.json .env.example .agents/skills/project-bootstrap/SKILL.md
 
-Live Stitch generation was not run because no `STITCH_API_KEY` or OAuth credential pair was configured in the environment.
+Live Stitch generation was initially skipped because no `STITCH_API_KEY` or OAuth credential pair was configured in the environment. After credentials were added locally in `.env`, a live smoke test generated two desktop mockup options and saved them under `plans/00-add-stitch-ui-mockups/mockups/`. The generated files include `option-01.png`, `option-01.html`, `option-02.png`, `option-02.html`, notes files, `index.md`, `decision.md`, `stitch-prompt.md`, `reference-style.json`, and `reference-style.md`.
 
 Final hand-written code-file line-count review found no file over the 600-line preference. The largest checked files were `scripts/stitch-mockups/style.mjs` at 280 lines, `.agents/skills/project-bootstrap/SKILL.md` at 168 lines, and `scripts/stitch-mockups/reference.mjs` at 166 lines.
 

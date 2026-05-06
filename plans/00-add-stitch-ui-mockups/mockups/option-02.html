@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentStudio - Project Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#171f33",
+                        "outline-variant": "#464555",
+                        "on-secondary-fixed": "#001e2f",
+                        "inverse-primary": "#4d44e3",
+                        "surface-bright": "#31394d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary": "#ffb695",
+                        "surface": "#0b1326",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#00a2e6",
+                        "surface-dim": "#0b1326",
+                        "surface-tint": "#c3c0ff",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#c9e6ff",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary": "#00344d",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#571f00",
+                        "primary-fixed": "#e2dfff",
+                        "inverse-on-surface": "#283044",
+                        "on-surface": "#dae2fd",
+                        "on-primary-container": "#dad7ff",
+                        "secondary": "#89ceff",
+                        "inverse-surface": "#dae2fd",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "background": "#0b1326",
+                        "primary-container": "#4f46e5",
+                        "tertiary-container": "#a44100",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-lowest": "#060e20",
+                        "on-secondary-fixed-variant": "#004c6e",
+                        "on-background": "#dae2fd",
+                        "surface-container-highest": "#2d3449",
+                        "primary": "#c3c0ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "secondary-fixed-dim": "#89ceff",
+                        "outline": "#918fa1",
+                        "on-secondary-container": "#00344e",
+                        "surface-container-high": "#222a3d",
+                        "on-primary": "#1d00a5",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-variant": "#2d3449",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-surface-variant": "#c7c4d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "stack-default": "12px",
+                        "stack-compact": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"],
+                        "code": ["monospace"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h2": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "code": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "h1": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "h2": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary-fixed-dim font-h3 text-h3 tracking-tight docked full-width top-0 sticky z-50 border-b border-outline-variant dark:border-outline-variant flat no shadows flex justify-between items-center w-full px-container-padding h-14">
+<div class="flex items-center gap-container-padding">
+<span class="text-h2 font-h2 font-black text-primary dark:text-primary-fixed-dim">AgentStudio</span>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Projects</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Agents</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 Active: opacity-80 transition-opacity" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-5xl mx-auto p-container-padding flex flex-col gap-container-padding mt-8 mb-24">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-default border-b border-outline-variant pb-stack-default">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-unit">Project Settings</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure agent behaviors, repository synchronization, and validation protocols for Project Alpha.</p>
+</div>
+<button class="bg-primary-container text-white px-gutter py-base rounded flex items-center gap-base hover:bg-primary-container/90 transition-colors h-8">
+<span class="material-symbols-outlined text-[18px]" data-icon="auto_awesome" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-h3 text-h3 text-sm">Generate UI Mockups</span>
+</button>
+</div>
+<!-- Repository Status Card -->
+<section class="bg-surface-container-low border border-outline-variant rounded-xl p-container-padding flex flex-col gap-stack-default">
+<div class="flex justify-between items-center border-b border-outline-variant/50 pb-base">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-base">
+<span class="material-symbols-outlined" data-icon="source">source</span>
+                    Repository Status
+                </h2>
+<button class="text-secondary hover:text-secondary-fixed transition-colors flex items-center gap-unit font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync">sync</span>
+                    Sync Now
+                </button>
+</div>
+<div class="flex flex-col md:flex-row gap-container-padding pt-base">
+<div class="flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-unit">Connected Repository</label>
+<div class="font-body-md text-body-md text-on-surface bg-surface-container px-base py-unit border border-outline-variant rounded inline-flex items-center gap-unit">
+<span class="material-symbols-outlined text-outline-variant text-[16px]" data-icon="folder">folder</span>
+                        agent-studio-core
+                    </div>
+</div>
+<div class="flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-unit">Target Branch</label>
+<div class="font-body-md text-body-md text-on-surface bg-surface-container px-base py-unit border border-outline-variant rounded inline-flex items-center gap-unit">
+<span class="material-symbols-outlined text-outline-variant text-[16px]" data-icon="call_split">call_split</span>
+                        main
+                    </div>
+</div>
+<div class="flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-unit">Last Sync</label>
+<div class="font-body-md text-body-md text-on-surface flex items-center gap-unit py-unit">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+                        Synced 4m ago
+                    </div>
+</div>
+</div>
+</section>
+<!-- Agent Skills & Intelligence -->
+<section class="flex flex-col gap-stack-default mt-8">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-base border-b border-outline-variant pb-base">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                Agent Skills &amp; Intelligence
+            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter pt-base">
+<!-- Skill Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-gutter flex flex-col gap-stack-default hover:border-primary-fixed-dim transition-colors">
+<div class="flex justify-between items-start">
+<div class="p-base bg-surface-container border border-outline-variant/50 rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="code_blocks">code_blocks</span>
+</div>
+<span class="bg-surface-container text-secondary border border-outline-variant px-2 py-0.5 rounded-full font-label-caps text-label-caps uppercase h-5 flex items-center">Active</span>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">UI Logic Extraction</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automatically parses design specs to generate functional React components.</p>
+</div>
+<div class="mt-auto pt-base border-t border-outline-variant/30 flex justify-end">
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-primary-container">
+<span class="translate-x-5 inline-block h-3 w-3 transform rounded-full bg-white transition"></span>
+</button>
+</div>
+</div>
+<!-- Skill Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-gutter flex flex-col gap-stack-default hover:border-primary-fixed-dim transition-colors">
+<div class="flex justify-between items-start">
+<div class="p-base bg-surface-container border border-outline-variant/50 rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="design_services">design_services</span>
+</div>
+<span class="bg-surface-container text-secondary border border-outline-variant px-2 py-0.5 rounded-full font-label-caps text-label-caps uppercase h-5 flex items-center">Active</span>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">Tailwind Optimizer</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Refactors raw CSS into optimal, minimal Tailwind utility classes.</p>
+</div>
+<div class="mt-auto pt-base border-t border-outline-variant/30 flex justify-end">
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-primary-container">
+<span class="translate-x-5 inline-block h-3 w-3 transform rounded-full bg-white transition"></span>
+</button>
+</div>
+</div>
+<!-- Skill Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-gutter flex flex-col gap-stack-default hover:border-primary-fixed-dim transition-colors opacity-70">
+<div class="flex justify-between items-start">
+<div class="p-base bg-surface-container border border-outline-variant/50 rounded-lg">
+<span class="material-symbols-outlined text-outline-variant" data-icon="fact_check">fact_check</span>
+</div>
+<span class="bg-surface text-outline-variant border border-outline-variant px-2 py-0.5 rounded-full font-label-caps text-label-caps uppercase h-5 flex items-center">Disabled</span>
+</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-unit">Auto-Validation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Runs automated accessibility and visual regression tests pre-commit.</p>
+</div>
+<div class="mt-auto pt-base border-t border-outline-variant/30 flex justify-end">
+<button class="relative inline-flex h-5 w-9 items-center rounded-full bg-surface-variant border border-outline-variant">
+<span class="translate-x-1 inline-block h-3 w-3 transform rounded-full bg-outline-variant transition"></span>
+</button>
+</div>
+</div>
+<!-- Add New Skill -->
+<div class="bg-surface-container border border-dashed border-outline-variant rounded-xl p-gutter flex flex-col items-center justify-center gap-stack-compact hover:border-primary hover:bg-surface-container-high transition-all cursor-pointer min-h-[160px]">
+<div class="p-base rounded-full bg-surface-container-highest mb-unit">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="add">add</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface">Add New Skill</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">Browse registry or import custom logic.</p>
+</div>
+</div>
+</section>
+<!-- Validation Commands -->
+<section class="flex flex-col gap-stack-default mt-8">
+<div class="flex justify-between items-center border-b border-outline-variant pb-base">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-base">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                    Validation Commands
+                </h2>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm flex items-center gap-unit">
+<span class="material-symbols-outlined text-[16px]" data-icon="settings_backup_restore">settings_backup_restore</span>
+                    Reset Defaults
+                </button>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden mt-base flex flex-col">
+<div class="bg-surface-container-high px-gutter py-unit border-b border-outline-variant flex items-center gap-unit">
+<div class="w-3 h-3 rounded-full bg-error/50"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary/50"></div>
+<div class="w-3 h-3 rounded-full bg-secondary-container/50"></div>
+<span class="ml-stack-default font-code text-code text-on-surface-variant">package.json scripts</span>
+</div>
+<div class="p-gutter font-code text-code text-on-surface flex flex-col gap-stack-compact">
+<div class="flex"><span class="text-outline-variant select-none w-8 text-right mr-stack-default">1</span><span class="text-secondary-fixed">npm run</span> lint:ui</div>
+<div class="flex"><span class="text-outline-variant select-none w-8 text-right mr-stack-default">2</span><span class="text-secondary-fixed">tailwind</span> --minify -o dist/output.css</div>
+<div class="flex"><span class="text-outline-variant select-none w-8 text-right mr-stack-default">3</span><span class="text-secondary-fixed">jest</span> --passWithNoTests</div>
+<div class="flex"><span class="text-outline-variant select-none w-8 text-right mr-stack-default">4</span><span class="text-on-surface-variant italic"># Pre-commit hooks</span></div>
+<div class="flex"><span class="text-outline-variant select-none w-8 text-right mr-stack-default">5</span><span class="text-secondary-fixed">husky</span> run pre-commit</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Actions -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container/90 backdrop-blur border-t border-outline-variant p-container-padding flex justify-end items-center gap-gutter z-40">
+<button class="font-h3 text-h3 text-on-surface-variant hover:text-on-surface px-gutter py-base h-8 rounded border border-transparent hover:border-outline-variant transition-all">Cancel</button>
+<button class="font-h3 text-h3 text-white bg-primary-container hover:bg-primary-container/90 px-gutter py-base h-8 rounded flex items-center transition-colors">Save Changes</button>
+</div>
+</body></html>
