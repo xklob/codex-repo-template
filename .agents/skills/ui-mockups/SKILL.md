@@ -40,10 +40,12 @@ the feature win.
 
    Omit `--reference` only when no visual sample exists. Use `--device MOBILE`,
    `TABLET`, or `AGNOSTIC` when the main design question is device-specific.
-5. Inspect `plans/<plan-stem>/mockups/index.md`, the generated PNG files, and
-   the generated HTML files when available. Present the user with a concise
-   option matrix that covers visual direction, workflow fit, risks, and the
-   option you recommend.
+5. Open the clickable `file://` URL printed by the command. It points to
+   `plans/<plan-stem>/mockups/index.html`, a browser preview page that embeds
+   every generated PNG and links to each option's generated HTML and notes.
+   Also inspect `plans/<plan-stem>/mockups/index.md` for a source-friendly
+   text summary. Present the user with a concise option matrix that covers
+   visual direction, workflow fit, risks, and the option you recommend.
 6. Stop for the user's choice. Do not implement the UI until the user selects
    an option, asks for a hybrid, or requests another mockup round.
 7. Record the selected direction in `plans/<plan-stem>/mockups/decision.md` and
@@ -75,4 +77,5 @@ The command copies only supported reference artifacts into
 `plans/<plan-stem>/mockups/reference/` and extracts design-language clues into
 `reference-style.json` and `reference-style.md`. Generated options are saved as
 `option-01.png`, `option-01.html`, `option-01-notes.md`, and matching numbered
-files.
+files. The command also writes `index.html` and prints a clickable `file://`
+link to that preview page in the terminal when generation completes.

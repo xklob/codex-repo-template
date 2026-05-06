@@ -19,7 +19,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       }
 
       console.log(`Generated ${result.generatedOptions.length} Stitch mockup option(s).`);
-      console.log(`Review: ${path.relative(process.cwd(), result.paths.indexPath)}`);
+      console.log(`Review Markdown: ${path.relative(process.cwd(), result.paths.indexPath)}`);
+      console.log(`Preview HTML: ${pathToFileURL(result.paths.htmlIndexPath).href}`);
     })
     .catch((error) => {
       console.error(error.message);

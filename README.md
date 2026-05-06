@@ -20,7 +20,7 @@ Use the project-bootstrap skill to customize this newly cloned template for my p
 
 The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. When that plan can affect frontend presentation, it includes explicit before-and-after screenshot steps and a deliberate screenshot UX review using `.agents/skills/review-ui-screenshots/SKILL.md`. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
 
-For substantial UI additions or refactors, use `.agents/skills/ui-mockups/SKILL.md` during planning before implementation begins. That skill uses `npm run stitch:mockups` to generate several Google Stitch-backed mockup options under the active ExecPlan folder, optionally using a local reference image or Stitch export bundle for style. The user should choose or combine a mockup direction before UI code is written.
+For substantial UI additions or refactors, use `.agents/skills/ui-mockups/SKILL.md` during planning before implementation begins. That skill uses `npm run stitch:mockups` to generate several Google Stitch-backed mockup options under the active ExecPlan folder, optionally using a local reference image or Stitch export bundle for style. The command writes a browser preview at `plans/<plan-stem>/mockups/index.html` and prints a clickable `file://` link when it finishes. The user should choose or combine a mockup direction before UI code is written.
 
 ## What This Template Is For
 
@@ -51,8 +51,8 @@ The current repository is mostly documentation by design. Each root document has
 - `.agents/skills/ask-questions-if-underspecified/SKILL.md` is the clarification workflow for work whose objective, scope, constraints, or safety are not clear enough to implement.
 - `.agents/skills/agent-browser/SKILL.md` is the repo-local pointer to browser automation guidance for screenshots, UI review, and web or Electron interaction.
 - `.agents/skills/review-ui-screenshots/SKILL.md` is the repo-local workflow for inspecting captured UI evidence section by section so obvious visual regressions are caught before UI-affecting work is called complete.
-- `.agents/skills/ui-mockups/SKILL.md` is the repo-local workflow for generating selectable pre-implementation UI mockups with Google Stitch and optional local style references.
-- `scripts/stitch-mockups.mjs` generates Stitch mockup artifacts under `plans/<plan-stem>/mockups/`.
+- `.agents/skills/ui-mockups/SKILL.md` is the repo-local workflow for generating selectable pre-implementation UI mockups with Google Stitch, optional local style references, and a browser preview index.
+- `scripts/stitch-mockups.mjs` generates Stitch mockup artifacts under `plans/<plan-stem>/mockups/`, including `index.html` for browser preview.
 - `.env.example` documents environment variables used by contributor tooling such as Stitch integration.
 
 The repository also reserves these top-level directories:
@@ -79,6 +79,8 @@ To generate UI mockup options for a future UI-affecting ExecPlan, set `STITCH_AP
 ```bash
 npm run stitch:mockups -- --plan <plan-stem> --prompt-file <prompt.md> --reference <sample-path> --variants 4 --device DESKTOP
 ```
+
+When the command succeeds, open the printed `file://` preview link or `plans/<plan-stem>/mockups/index.html` to inspect the generated options in a browser.
 
 ## Feedback
 

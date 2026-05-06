@@ -141,6 +141,7 @@ export function resolveWorkflowPaths(repoRoot, planStem) {
     mockupsDir,
     referenceDir: path.join(mockupsDir, "reference"),
     indexPath: path.join(mockupsDir, "index.md"),
+    htmlIndexPath: path.join(mockupsDir, "index.html"),
     decisionPath: path.join(mockupsDir, "decision.md"),
     styleJsonPath: path.join(mockupsDir, "reference-style.json"),
     styleMarkdownPath: path.join(mockupsDir, "reference-style.md"),

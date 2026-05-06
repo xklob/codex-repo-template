@@ -42,7 +42,7 @@ export async function runCli(argv, env = process.env) {
   await fs.writeFile(paths.stitchPromptPath, stitchPrompt, "utf8");
 
   const generatedOptions = await generateStitchOptions(options, copiedReference, stitchPrompt, paths.mockupsDir);
-  await writeIndex(paths.indexPath, options, copiedReference, generatedOptions);
+  await writeIndexFiles(paths, options, copiedReference, generatedOptions);
   await writeDecisionTemplate(paths.decisionPath, generatedOptions);
 
   return {
@@ -62,9 +62,17 @@ function assertStitchCredentials(env) {
 }
 
 /**
- * Writes the index users inspect when choosing among generated options.
+ * Writes the index files users inspect when choosing among generated options.
  */
-async function writeIndex(indexPath, options, reference, generatedOptions) {
+export async function writeIndexFiles(paths, options, reference, generatedOptions) {
+  await writeMarkdownIndex(paths.indexPath, options, reference, generatedOptions);
+  await writeHtmlIndex(paths.htmlIndexPath, options, reference, generatedOptions);
+}
+
+/**
+ * Writes the Markdown index for source review and plain-text diffs.
+ */
+async function writeMarkdownIndex(indexPath, options, reference, generatedOptions) {
   const lines = [
     "# UI Mockup Options",
     "",
@@ -72,6 +80,7 @@ async function writeIndex(indexPath, options, reference, generatedOptions) {
     `Device: \`${options.device}\``,
     `Reference: \`${reference.kind}\``,
     "",
+    "Open `index.html` in a browser to preview every option on one page.",
     "Review each option's PNG first, then open the matching HTML when available to inspect spacing, typography, and layout details.",
     "",
   ];
@@ -86,6 +95,99 @@ async function writeIndex(indexPath, options, reference, generatedOptions) {
   }
 
   await fs.writeFile(indexPath, `${lines.join("\n")}\n`, "utf8");
+}
+
+/**
+ * Writes a browser-friendly preview page with embedded screenshots.
+ */
+async function writeHtmlIndex(indexPath, options, reference, generatedOptions) {
+  const optionCards = generatedOptions.map((option) => renderOptionCard(option)).join("\n");
+  const html = [
+    "<!doctype html>",
+    "<html lang=\"en\">",
+    "<head>",
+    "  <meta charset=\"utf-8\">",
+    "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+    `  <title>${escapeHtml(options.plan)} UI Mockups</title>`,
+    "  <style>",
+    "    :root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: Canvas; color: CanvasText; }",
+    "    body { margin: 0; padding: 32px; }",
+    "    main { max-width: 1180px; margin: 0 auto; }",
+    "    header { margin-bottom: 28px; }",
+    "    h1 { margin: 0 0 8px; font-size: 2rem; line-height: 1.15; }",
+    "    p { margin: 0; color: color-mix(in srgb, CanvasText 72%, transparent); line-height: 1.5; }",
+    "    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }",
+    "    .chip { border: 1px solid color-mix(in srgb, CanvasText 18%, transparent); border-radius: 999px; padding: 6px 10px; font-size: 0.875rem; }",
+    "    .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }",
+    "    article { border: 1px solid color-mix(in srgb, CanvasText 16%, transparent); border-radius: 8px; overflow: clip; background: color-mix(in srgb, Canvas 94%, CanvasText 6%); }",
+    "    article img { display: block; width: 100%; height: auto; background: white; }",
+    "    .body { padding: 16px; }",
+    "    h2 { margin: 0 0 12px; font-size: 1.125rem; }",
+    "    ul { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin: 0; padding: 0; }",
+    "    a { color: LinkText; }",
+    "  </style>",
+    "</head>",
+    "<body>",
+    "  <main>",
+    "    <header>",
+    "      <h1>UI Mockup Options</h1>",
+    "      <p>Preview the generated screenshots here, then open the source HTML or notes for implementation details.</p>",
+    "      <div class=\"meta\">",
+    `        <span class=\"chip\">Plan: ${escapeHtml(options.plan)}</span>`,
+    `        <span class=\"chip\">Device: ${escapeHtml(options.device)}</span>`,
+    `        <span class=\"chip\">Reference: ${escapeHtml(reference.kind)}</span>`,
+    "      </div>",
+    "    </header>",
+    "    <section class=\"grid\" aria-label=\"Generated mockup options\">",
+    optionCards,
+    "    </section>",
+    "  </main>",
+    "</body>",
+    "</html>",
+  ].join("\n");
+
+  await fs.writeFile(indexPath, `${html}\n`, "utf8");
+}
+
+/**
+ * Renders one generated option into the preview grid.
+ */
+function renderOptionCard(option) {
+  const imageName = path.basename(option.imagePath);
+  const notesName = path.basename(option.notesPath);
+  const htmlName = option.htmlPath ? path.basename(option.htmlPath) : undefined;
+  const links = [
+    `<li><a href="${escapeAttribute(imageName)}">Open PNG</a></li>`,
+    htmlName ? `<li><a href="${escapeAttribute(htmlName)}">Open HTML</a></li>` : "<li>HTML unavailable</li>",
+    `<li><a href="${escapeAttribute(notesName)}">Notes</a></li>`,
+  ].join("");
+
+  return [
+    "      <article>",
+    `        <a href="${escapeAttribute(imageName)}"><img src="${escapeAttribute(imageName)}" alt="${escapeAttribute(option.optionSlug)} screenshot"></a>`,
+    "        <div class=\"body\">",
+    `          <h2>${escapeHtml(option.optionSlug)}</h2>`,
+    `          <ul>${links}</ul>`,
+    "        </div>",
+    "      </article>",
+  ].join("\n");
+}
+
+/**
+ * Escapes text rendered into HTML element content.
+ */
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+/**
+ * Escapes text rendered into quoted HTML attributes.
+ */
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll("\"", "&quot;");
 }
 
 /**
