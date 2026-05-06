@@ -66,6 +66,7 @@ Gather:
 - Preferred language, runtime, package manager, framework, testing tools, formatter, linter, build command, and deployment target.
 - Required integrations: databases, queues, auth providers, payment providers, AI services, email, storage, analytics, observability, or external APIs.
 - Design direction: visual tone, density, brand constraints, primary devices, accessibility expectations, key screens, and whether browser or Electron visual review will be required.
+- UI mockup expectations: whether substantial UI work should generate multiple pre-implementation mockups, whether the user has a local reference image or Stitch export bundle to use as a style sample, and whether Google Stitch credentials will be available for `npm run stitch:mockups`.
 - Repository operations: license, remote name, default branch, CI expectations, release process, environment variable strategy, secrets handling, and whether `.codex/config.toml` should keep the template default.
 - How much toolchain setup to do now versus record in the final ExecPlan.
 
@@ -139,6 +140,7 @@ The ExecPlan must be self-contained and must not assume the reader remembers the
 - validation and acceptance criteria
 - required control-document updates
 - visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation, including explicit `Progress` and `Concrete Steps` entries for baseline screenshots before implementation, matching screenshots after implementation, and screenshot UX review using `.agents/skills/review-ui-screenshots/SKILL.md`
+- pre-implementation UI mockup requirements when the planned work is a substantial UI addition, UI refactor, major responsive/layout change, or design-direction choice, including use of `.agents/skills/ui-mockups/SKILL.md`, `plans/<plan-stem>/mockups/` artifacts, optional local reference samples, and a user-selected direction before UI code is implemented
 - a final code-file line-count review when the planned work adds or changes code, applying the 600-line preference from `CODESTYLE.md` and requiring user approval before any unplanned split, refactor, or library addition
 - open questions and deferred decisions
 

@@ -72,6 +72,10 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 `Core`: The template includes `.agents/skills/review-ui-screenshots/SKILL.md` for the post-capture inspection step after UI-affecting work. The skill requires screenshots to be reviewed section by section and state by state, with explicit checks for overlapping labels, clipped controls, cramped panels, broken responsive states, inaccessible visible states, and unclear workflow feedback. This is separate from screenshot capture: `agent-browser` produces the evidence, and `review-ui-screenshots` defines how to inspect it before the work is called complete.
 
+### UI Mockups Skill
+
+`Core`: The template includes `.agents/skills/ui-mockups/SKILL.md` for substantial UI additions, UI refactors, and design-direction choices that should be resolved before implementation. The skill uses `npm run stitch:mockups` and Google Stitch to generate several selectable mockup options under `plans/<plan-stem>/mockups/`. It can use a local image, HTML/CSS file, or Google Stitch export bundle as a style reference, copying approved sample artifacts into the plan folder and extracting style signals into `reference-style.json` and `reference-style.md`. The default rule is style-only influence: the sample guides palette, typography, density, spacing, radius, shadows, and component feel, while the requested feature still controls layout, content, and workflow.
+
 ### Windows/WSL Desktop Screenshot Helper
 
 `Core`: The template includes `scripts/win-screenshot`, a portable helper for contributors running Windows 11 with Codex or another agent inside WSL. The script captures the full host Windows desktop, including shell UI such as the taskbar, when evidence needs to show the entire desktop rather than a browser page alone.
@@ -91,6 +95,10 @@ Focus on the workflows that are actually available now. If a workflow is partial
 ### Agent-Assisted Repository Work
 
 A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. If the work can affect frontend presentation, the plan includes explicit steps for capturing baseline screenshots before implementation, matching screenshots after implementation, and reviewing the captured evidence with `.agents/skills/review-ui-screenshots/SKILL.md`. If the work changes code, the plan ends with a hand-written code-file line-count review using the 600-line preference in `CODESTYLE.md`; any extra split, refactor, or library addition discovered by that review waits for user approval unless it was already in the accepted plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
+
+### Pre-Implementation UI Mockup Selection
+
+For meaningful UI additions or refactors, a contributor can invoke `.agents/skills/ui-mockups/SKILL.md` while creating or refining the ExecPlan. The workflow reads the active plan and `DESIGN.md`, prepares a feature prompt, optionally copies a local reference sample into `plans/<plan-stem>/mockups/reference/`, and runs `npm run stitch:mockups` to create several PNG and HTML options. The contributor presents the options to the user, records the chosen direction in `plans/<plan-stem>/mockups/decision.md` and the ExecPlan `Decision Log`, then implements from that selected direction. This workflow happens before code changes and does not replace final before/after screenshot evidence or screenshot UX review.
 
 ### Template-To-Project Bootstrap
 
@@ -116,6 +124,8 @@ These are not implementation details for their own sake; include them only when 
 Current Codex model defaults apply only to Codex environments that load trusted project-scoped `.codex/config.toml` files. They do not create an application runtime, API integration, model router, or test harness.
 
 The project bootstrap skill prepares a repository for implementation, but it does not implement the product itself. It may install approved tooling and update setup configuration, but user-visible product behavior should be built later from the ExecPlan it creates.
+
+The UI mockups workflow requires live Google Stitch credentials for generation: either `STITCH_API_KEY`, or `STITCH_ACCESS_TOKEN` with `GOOGLE_CLOUD_PROJECT`. Without credentials, contributors can still read the skill and tests, but they cannot generate live Stitch options. The workflow supports local reference files and folders in v1; it does not fetch live Stitch project or screen IDs.
 
 The desktop screenshot helper is intentionally scoped to Windows 11 with WSL and requires `powershell.exe` and `wslpath` on PATH. It is not a cross-platform Linux, macOS, browser, or mobile screenshot tool.
 

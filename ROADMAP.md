@@ -49,6 +49,14 @@ the final review should apply the professional UI/UX pass in `DESIGN.md` so
 new surfaces are usable, responsive, accessible in visible interaction states,
 and polished enough for a product-quality handoff.
 
+For substantial UI additions and refactors, template-derived projects should
+prefer choosing a visual direction before implementation begins. Use
+`.agents/skills/ui-mockups/SKILL.md` to create several Google Stitch-backed
+mockup options, optionally based on a local reference image or Stitch export
+bundle, then record the selected direction in the ExecPlan before writing UI
+code. This reduces blind frontend generation and makes design tradeoffs visible
+early.
+
 ## 4. Current Phase
 
 Describe the current phase of the roadmap in plain language.
@@ -71,6 +79,10 @@ For each priority, state:
 - what kinds of work are likely to follow from it
 
 Keep this at roadmap level. Do not turn it into a checklist of implementation tickets.
+
+Current template-level priority: improve UI planning workflows so agents can
+show multiple visual options before implementation, use supplied samples as
+style references, and preserve the selected direction as durable plan evidence.
 
 ## 6. Later Opportunities
 

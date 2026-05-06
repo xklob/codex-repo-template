@@ -8,6 +8,8 @@ Create new ExecPlan files under `plans/` with a two-digit ordering prefix and a 
 
 When creating an ExecPlan that can affect frontend presentation, include explicit plan steps for taking baseline screenshots before implementation, matching after screenshots after implementation, and reviewing the captured evidence with `.agents/skills/review-ui-screenshots/SKILL.md`. Put those steps in the plan's `Progress` checklist and `Concrete Steps` section, and name the `plans/<name-of-plan>/screenshots/` paths the work will produce. If screenshots are not applicable because there is no runnable visual target, the plan should say that directly and name the replacement validation.
 
+For substantial UI additions, UI refactors, major responsive/layout changes, or design-direction choices, use `.agents/skills/ui-mockups/SKILL.md` during planning before UI implementation begins. Save generated mockup options under `plans/<name-of-plan>/mockups/`, present the options to the user, and record the selected or hybrid direction in the ExecPlan before editing UI code. Do not use this workflow for small visual fixes, copy tweaks, or already-approved designs.
+
 When creating an ExecPlan that adds or changes code, include a final `Progress` and `Concrete Steps` item to check line counts for hand-written code files. Use the `CODESTYLE.md` preference that code files stay below 600 lines. If any file exceeds that preference, list the file and line count, recommend a concrete response such as a refactor, code split, fixture move, helper extraction, library addition, or documented exception, and ask the user to approve that extra work before implementing it unless the accepted plan already included it.
 
 ## Planning and Change Intake
@@ -31,6 +33,12 @@ Use the repo-local `agent-browser` skill whenever the task requires browser inte
 After any UI update, run the app when practical and capture several screenshots with `agent-browser` across materially different viewports, including desktop and mobile. Include tablet or narrow-desktop coverage when layout behavior changes at intermediate widths. For ExecPlan work, save screenshots under `plans/<name-of-plan>/screenshots/` using names such as `before-implementation-1.png`, `before-implementation-2.png`, `after-implementation-1.png`, and `after-implementation-2.png`; use the plan file's stem as `<name-of-plan>`, and make the before and after captures explicit steps in the plan being executed. After capture, load `.agents/skills/review-ui-screenshots/SKILL.md` and inspect each screenshot section by section before finishing the work. Look for regressions, text overlap, clipped controls, awkward spacing, broken responsive states, accessibility-visible issues, confusing control states, and obvious quality-of-life improvements. Apply the professional UI/UX review pass defined in `DESIGN.md`: judge the result against product-quality hierarchy, workflow ergonomics, responsive behavior, accessible interaction states, polished spacing and typography, and predictable state feedback. Make the follow-up fixes that are in scope, and call out any remaining issues that need a separate product or design decision.
 
 Apply the same visual-review workflow to backend changes when they can affect frontend layout or presentation, such as API payload shape changes, empty/loading/error states, limits, sorting, labels, image dimensions, feature flags, or data that drives conditional UI. If no runnable browser or Electron target exists, state that visual review was not applicable and explain what validation replaced it. On Windows 11 with WSL, use `scripts/win-screenshot [output.png]` when the evidence needs to show the whole host desktop instead of only a browser page or Electron window.
+
+## UI Mockups and Stitch
+
+Use the repo-local `ui-mockups` skill when planning meaningful UI work that needs design options before implementation. Load `.agents/skills/ui-mockups/SKILL.md`, read the active ExecPlan and `DESIGN.md`, prepare a feature prompt, and run `npm run stitch:mockups` when Google Stitch credentials are available. The command writes options to `plans/<name-of-plan>/mockups/` and accepts local reference images or Google Stitch export bundles. Reference samples guide style by default; they should not control layout or content unless the user explicitly asks for that.
+
+Before copying a supplied sample into the repository, confirm it contains no secrets or restricted third-party material. If `STITCH_API_KEY` or the OAuth variables from `.env.example` are unavailable, explain that live Stitch generation was not run instead of inventing mockup artifacts.
 
 ## Core Documents
 
@@ -64,18 +72,22 @@ This repository is intentionally minimal at the moment. Keep runtime code in `sr
 When adding application code, keep the layout simple and predictable:
 - Keep project-scoped Codex configuration in `.codex/config.toml`. The current default model is `gpt-5.5`.
 - Keep repo-local agent workflows in `.agents/skills/`. The `project-bootstrap` skill owns the guided template customization workflow, `ask-questions-if-underspecified` owns high-risk clarification, `agent-browser` owns browser automation discovery, and `review-ui-screenshots` owns the deliberate post-capture UX inspection pass for UI evidence.
+- Use `ui-mockups` for pre-implementation UI option generation and user selection when the UI change is substantial enough to need visual direction.
 - Put runtime code in a top-level `src/` directory.
 - Mirror tests under `tests/`.
 - Keep static assets in `assets/` if they are needed later.
 - Leave repository-level documentation in the root.
 
 ## Build, Test, and Development Commands
-There is no checked-in application build or test toolchain yet. The existing npm manifest is only for contributor tooling such as `agent-browser`. Until an application toolchain is added, use lightweight repo checks:
+There is no checked-in application build or test toolchain yet. The existing npm manifest is only for contributor tooling such as `agent-browser`, Stitch mockup generation, and tests for those utilities. Until an application toolchain is added, use lightweight repo checks:
 
 - `git status` shows pending changes before commit or review.
 - `rg --files --hidden -g '!.git/**'` lists the current file set quickly, including `.codex/config.toml`.
 - `git log --oneline` shows the existing commit style.
 - `scripts/win-screenshot [output.png]` captures the full Windows desktop from Windows 11 with WSL when host-desktop visual evidence is needed.
+- `npm test` runs the current contributor-tooling tests.
+- `npm audit --omit=dev` checks installed contributor-tooling dependencies for known advisories.
+- `npm run stitch:mockups -- --plan <plan-stem> --prompt-file <prompt.md> --reference <sample-path> --variants 4 --device DESKTOP` generates Google Stitch UI mockup options for substantial UI work when Stitch credentials are configured.
 
 If you introduce a language toolchain, add its canonical commands to this section in the same change. Prefer a single documented entry point such as `make test`, `npm test`, or `pytest`.
 
