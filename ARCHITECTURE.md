@@ -32,8 +32,8 @@ Suggested shape:
 - `src/[storage_or_infra]` - Talks to databases, queues, filesystems, or external APIs.
 - `CODESTYLE.md` - Owns source formatting, naming, TypeScript annotation expectations, documentation style, strict commenting standards, and code-file size expectations for template-derived code.
 - `.codex/config.toml` - Owns project-scoped Codex defaults, including the default model used by trusted Codex sessions.
-- `.agents/skills/` - Owns repo-local agent workflows. `project-bootstrap` guides the first template-to-project customization pass, `ask-questions-if-underspecified` protects unclear work from premature implementation, and `agent-browser` points agents to version-matched browser automation guidance.
-- `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created. UI-affecting plans also reserve `plans/<name-of-plan>/screenshots/` for explicit before-and-after screenshot steps, and code-changing plans end with a hand-written code-file line-count review.
+- `.agents/skills/` - Owns repo-local agent workflows. `project-bootstrap` guides the first template-to-project customization pass, `ask-questions-if-underspecified` protects unclear work from premature implementation, `agent-browser` points agents to version-matched browser automation guidance, and `review-ui-screenshots` defines the deliberate post-capture UX inspection pass for UI evidence.
+- `plans/` - Stores ExecPlans for substantial work. Plan filenames use two-digit prefixes, such as `00-add-feature-x.md`, so multiple plans sort in the order they were created. UI-affecting plans also reserve `plans/<name-of-plan>/screenshots/` for explicit before-and-after screenshot steps and should name the screenshot UX review step, while code-changing plans end with a hand-written code-file line-count review.
 - `scripts/` - Stores portable contributor utilities that should work from any clone in the expected environment. `scripts/win-screenshot` captures the full Windows desktop from Windows 11 with WSL by invoking Windows PowerShell and the Win32 desktop capture APIs.
 - `tests/` - Mirrors `src/` and verifies ...
 - `assets/` - Stores static assets used by ...
@@ -61,7 +61,7 @@ Template bootstrap flow:
 1. A contributor clones the template and asks Codex to use `.agents/skills/project-bootstrap/SKILL.md`.
 2. The skill instructs the agent to inspect the current clone, gather the product brief, challenge risky choices, and confirm the bootstrap scope.
 3. The agent updates root control documents and installs approved setup tooling without implementing product feature code.
-4. The agent writes the next ordered ExecPlan under `plans/` so the first implementation slice can proceed from repository context instead of chat history; if the planned work can affect frontend presentation, the plan includes explicit baseline and after-implementation screenshot steps.
+4. The agent writes the next ordered ExecPlan under `plans/` so the first implementation slice can proceed from repository context instead of chat history; if the planned work can affect frontend presentation, the plan includes explicit baseline screenshot capture, after-implementation screenshot capture, and screenshot UX review steps.
 
 ## Architectural Invariants
 

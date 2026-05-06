@@ -18,7 +18,7 @@ Example prompt:
 Use the project-bootstrap skill to customize this newly cloned template for my project.
 ```
 
-The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. When that plan can affect frontend presentation, it includes explicit before-and-after screenshot steps. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
+The skill lives at `.agents/skills/project-bootstrap/SKILL.md`. It walks through product intake, suggests simpler or safer alternatives when useful, updates the root control documents, installs approved frameworks or packages for the selected toolchain, and finishes by creating an ordered ExecPlan for initial setup. When that plan can affect frontend presentation, it includes explicit before-and-after screenshot steps and a deliberate screenshot UX review using `.agents/skills/review-ui-screenshots/SKILL.md`. It is intentionally not a product-code implementation skill; use the generated ExecPlan for the first implementation pass.
 
 ## What This Template Is For
 
@@ -48,6 +48,7 @@ The current repository is mostly documentation by design. Each root document has
 - `.agents/skills/project-bootstrap/SKILL.md` is the guided first-run workflow for replacing template placeholders with project-specific truth, installing approved setup tooling, and producing the initial setup ExecPlan.
 - `.agents/skills/ask-questions-if-underspecified/SKILL.md` is the clarification workflow for work whose objective, scope, constraints, or safety are not clear enough to implement.
 - `.agents/skills/agent-browser/SKILL.md` is the repo-local pointer to browser automation guidance for screenshots, UI review, and web or Electron interaction.
+- `.agents/skills/review-ui-screenshots/SKILL.md` is the repo-local workflow for inspecting captured UI evidence section by section so obvious visual regressions are caught before UI-affecting work is called complete.
 
 The repository also reserves these top-level directories:
 

@@ -54,7 +54,7 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 
 ### Guided Project Bootstrap Skill
 
-`Core`: The template includes a repo-local `project-bootstrap` skill at `.agents/skills/project-bootstrap/SKILL.md`. After cloning, a contributor can ask Codex to use this skill to gather the product brief, propose safer alternatives when needed, update the root control documents, install approved frameworks or packages for the initial toolchain, and create an ordered ExecPlan for the first setup work. When the generated plan can affect frontend presentation, it must include explicit before-and-after screenshot capture steps. The skill is not for implementing product feature code.
+`Core`: The template includes a repo-local `project-bootstrap` skill at `.agents/skills/project-bootstrap/SKILL.md`. After cloning, a contributor can ask Codex to use this skill to gather the product brief, propose safer alternatives when needed, update the root control documents, install approved frameworks or packages for the initial toolchain, and create an ordered ExecPlan for the first setup work. When the generated plan can affect frontend presentation, it must include explicit before-and-after screenshot capture steps and a final screenshot UX review using `.agents/skills/review-ui-screenshots/SKILL.md`. The skill is not for implementing product feature code.
 
 ### Ordered ExecPlan Guidance
 
@@ -67,6 +67,10 @@ If a small or medium feature lands without an ExecPlan, this section should usua
 ### Professional UI/UX Review Expectations
 
 `Core`: The template requires UI-affecting ExecPlan work to finish with the professional UI/UX review pass defined in `DESIGN.md`. Contributors must judge rendered output against product-quality standards for hierarchy, workflow ergonomics, responsive behavior, accessible interaction states, spacing, typography, and predictable feedback before calling UI or frontend work complete. The plan should include before and after screenshot steps so reviewers can compare the visual result against the baseline.
+
+### Screenshot UX Review Skill
+
+`Core`: The template includes `.agents/skills/review-ui-screenshots/SKILL.md` for the post-capture inspection step after UI-affecting work. The skill requires screenshots to be reviewed section by section and state by state, with explicit checks for overlapping labels, clipped controls, cramped panels, broken responsive states, inaccessible visible states, and unclear workflow feedback. This is separate from screenshot capture: `agent-browser` produces the evidence, and `review-ui-screenshots` defines how to inspect it before the work is called complete.
 
 ### Windows/WSL Desktop Screenshot Helper
 
@@ -86,7 +90,7 @@ Focus on the workflows that are actually available now. If a workflow is partial
 
 ### Agent-Assisted Repository Work
 
-A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. If the work can affect frontend presentation, the plan includes explicit steps for capturing baseline screenshots before implementation and matching screenshots after implementation. If the work changes code, the plan ends with a hand-written code-file line-count review using the 600-line preference in `CODESTYLE.md`; any extra split, refactor, or library addition discovered by that review waits for user approval unless it was already in the accepted plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
+A human or agent opens the repository, reads the root control documents, and uses the checked-in `.codex/config.toml` default for Codex-assisted work. For complex work, they create or continue an ExecPlan in `plans/` using the next ordered filename prefix before implementing from that plan. If the work can affect frontend presentation, the plan includes explicit steps for capturing baseline screenshots before implementation, matching screenshots after implementation, and reviewing the captured evidence with `.agents/skills/review-ui-screenshots/SKILL.md`. If the work changes code, the plan ends with a hand-written code-file line-count review using the 600-line preference in `CODESTYLE.md`; any extra split, refactor, or library addition discovered by that review waits for user approval unless it was already in the accepted plan. The workflow ends with repository changes that preserve the control-document contract and can be validated with the lightweight checks in `README.md` until a real toolchain exists.
 
 ### Template-To-Project Bootstrap
 
