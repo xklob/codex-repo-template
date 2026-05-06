@@ -16,6 +16,7 @@ After this change, a contributor planning a meaningful UI addition or refactor c
 - [x] (2026-05-06T05:24Z) Add offline tests for argument parsing, reference handling, style extraction, prompt construction, and missing credentials.
 - [x] (2026-05-06T05:29Z) Add the repo-local `ui-mockups` skill and synchronize root control documents.
 - [x] (2026-05-06T05:29Z) Run validation, including tests, syntax checks, `git diff --check`, npm audit, skill validation, and final hand-written code-file line-count review.
+- [x] (2026-05-06T05:46Z) Address PR review feedback by preserving reference-bundle relative paths, copying local linked stylesheets for standalone HTML references, normalizing stylesheet query strings during extraction, and adding regression tests.
 
 ## Surprises & Discoveries
 
@@ -25,6 +26,8 @@ After this change, a contributor planning a meaningful UI addition or refactor c
   Evidence: `wc -l scripts/stitch-mockups.mjs` reported 805 lines before the script was split into modules.
 - Observation: Installing the Stitch SDK initially surfaced moderate transitive audit findings through `ip-address`.
   Evidence: `npm audit --omit=dev --json` reported three moderate advisories before adding the `ip-address` override and rerunning install.
+- Observation: Flattening copied reference files could overwrite same-named files and break relative HTML-to-CSS links in copied mockup references.
+  Evidence: PR review comment `discussion_r3193257374` pointed out `path.basename(sourcePath)` flattening, and regression tests now cover nested duplicate `styles.css` files plus standalone HTML references with `styles.css?v=1`.
 
 ## Decision Log
 
@@ -55,6 +58,8 @@ Validation passed:
 Live Stitch generation was not run because no `STITCH_API_KEY` or OAuth credential pair was configured in the environment.
 
 Final hand-written code-file line-count review found no file over the 600-line preference. The largest checked files were `scripts/stitch-mockups/style.mjs` at 280 lines, `.agents/skills/project-bootstrap/SKILL.md` at 168 lines, and `scripts/stitch-mockups/reference.mjs` at 166 lines.
+
+After PR review feedback, the final hand-written code-file line-count review still found no file over the 600-line preference. The largest checked files were `scripts/stitch-mockups/style.mjs` at 298 lines, `scripts/stitch-mockups/reference.mjs` at 247 lines, and `tests/stitch-mockups.test.mjs` at 182 lines.
 
 ## Context and Orientation
 

@@ -110,12 +110,30 @@ function collectLocalCssLinks($) {
 
   $('link[rel="stylesheet"][href]').each((_, element) => {
     const href = $(element).attr("href");
-    if (href && !href.startsWith("http://") && !href.startsWith("https://") && !href.startsWith("//")) {
-      links.push(href);
+    const hrefPath = normalizeLocalStylesheetHref(href);
+
+    if (hrefPath) {
+      links.push(hrefPath);
     }
   });
 
   return links;
+}
+
+/**
+ * Converts a stylesheet href into a local path that can be read from disk.
+ */
+function normalizeLocalStylesheetHref(href) {
+  if (!href || href.startsWith("http://") || href.startsWith("https://") || href.startsWith("//")) {
+    return undefined;
+  }
+
+  const hrefPath = href.split(/[?#]/, 1)[0];
+  if (!hrefPath || path.isAbsolute(hrefPath) || path.extname(hrefPath).toLowerCase() !== ".css") {
+    return undefined;
+  }
+
+  return hrefPath;
 }
 
 /**

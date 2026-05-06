@@ -49,10 +49,13 @@ test("reference bundles are detected and copied with supported files only", asyn
   const tempDir = await makeTempDir();
   const bundleDir = path.join(tempDir, "bundle");
   const referenceDir = path.join(tempDir, "plans", "00-ui", "mockups", "reference");
-  await fs.mkdir(bundleDir, { recursive: true });
+  await fs.mkdir(path.join(bundleDir, "screen"), { recursive: true });
+  await fs.mkdir(path.join(bundleDir, "theme"), { recursive: true });
+  await fs.mkdir(path.join(bundleDir, "nested"), { recursive: true });
   await fs.writeFile(path.join(bundleDir, "preview.png"), "fake image");
-  await fs.writeFile(path.join(bundleDir, "index.html"), "<link rel=\"stylesheet\" href=\"styles.css\"><main></main>");
-  await fs.writeFile(path.join(bundleDir, "styles.css"), "main { color: #123456; }");
+  await fs.writeFile(path.join(bundleDir, "screen", "index.html"), "<link rel=\"stylesheet\" href=\"../theme/styles.css\"><main></main>");
+  await fs.writeFile(path.join(bundleDir, "theme", "styles.css"), "main { color: #123456; }");
+  await fs.writeFile(path.join(bundleDir, "nested", "styles.css"), "main { color: #abcdef; }");
   await fs.writeFile(path.join(bundleDir, ".env"), "SECRET=value");
 
   const reference = await detectReference(bundleDir);
@@ -61,12 +64,38 @@ test("reference bundles are detected and copied with supported files only", asyn
   assert.equal(reference.kind, "bundle");
   assert.equal(path.basename(reference.imagePath), "preview.png");
   assert.equal(path.basename(reference.htmlPath), "index.html");
-  assert.deepEqual(copied.files.map((file) => path.basename(file)).sort(), [
-    "index.html",
+  assert.deepEqual(copied.files.map((file) => path.relative(referenceDir, file)).sort(), [
+    path.join("nested", "styles.css"),
     "preview.png",
+    path.join("screen", "index.html"),
+    path.join("theme", "styles.css"),
+  ]);
+  const style = await extractReferenceStyle(copied);
+  assert.ok(style.colors.includes("#123456"));
+  assert.ok(style.colors.includes("#abcdef"));
+  await assert.rejects(() => fs.access(path.join(referenceDir, ".env")));
+});
+
+test("standalone HTML references copy local linked stylesheets", async () => {
+  const tempDir = await makeTempDir();
+  const referenceDir = path.join(tempDir, "plans", "00-ui", "mockups", "reference");
+  const htmlPath = path.join(tempDir, "reference.html");
+  const cssPath = path.join(tempDir, "styles.css");
+  await fs.writeFile(htmlPath, "<link rel=\"stylesheet\" href=\"styles.css?v=1\"><main></main>");
+  await fs.writeFile(cssPath, "main { color: #654321; padding: 12px; }");
+
+  const reference = await detectReference(htmlPath);
+  const copied = await copyReferenceArtifacts(reference, referenceDir);
+  const style = await extractReferenceStyle(copied);
+
+  assert.equal(reference.kind, "html");
+  assert.deepEqual(copied.files.map((file) => path.relative(referenceDir, file)).sort(), [
+    "reference.html",
     "styles.css",
   ]);
-  await assert.rejects(() => fs.access(path.join(referenceDir, ".env")));
+  assert.ok(style.colors.includes("#654321"));
+  assert.ok(style.spacing.some((value) => value.includes("padding")));
+  assert.deepEqual(style.warnings, []);
 });
 
 test("extractReferenceStyle reads linked CSS and writes summaries", async () => {

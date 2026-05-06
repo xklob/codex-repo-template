@@ -6,6 +6,7 @@
  */
 
 import { promises as fs } from "node:fs";
+import * as cheerio from "cheerio";
 import path from "node:path";
 
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
@@ -36,22 +37,88 @@ export async function detectReference(referencePath) {
 /**
  * Detects a single reference file type.
  */
-function detectReferenceFile(referencePath) {
+async function detectReferenceFile(referencePath) {
   const extension = path.extname(referencePath).toLowerCase();
+  const root = path.dirname(referencePath);
 
   if (IMAGE_EXTENSIONS.has(extension)) {
-    return { kind: "image", imagePath: referencePath, cssPaths: [], files: [referencePath] };
+    return { kind: "image", root, imagePath: referencePath, cssPaths: [], files: [referencePath] };
   }
 
   if (HTML_EXTENSIONS.has(extension)) {
-    return { kind: "html", htmlPath: referencePath, cssPaths: [], files: [referencePath] };
+    const cssPaths = await collectLinkedStylesheets(referencePath, root);
+    return { kind: "html", root, htmlPath: referencePath, cssPaths, files: [referencePath, ...cssPaths] };
   }
 
   if (CSS_EXTENSIONS.has(extension)) {
-    return { kind: "css", cssPaths: [referencePath], files: [referencePath] };
+    return { kind: "css", root, cssPaths: [referencePath], files: [referencePath] };
   }
 
   throw new Error("Reference file must be PNG, JPG, JPEG, WEBP, HTML, HTM, or CSS");
+}
+
+/**
+ * Finds local stylesheets linked from a standalone HTML reference file.
+ */
+async function collectLinkedStylesheets(htmlPath, root) {
+  const html = await fs.readFile(htmlPath, "utf8");
+  const $ = cheerio.load(html);
+  const cssPaths = [];
+
+  $('link[rel="stylesheet"][href]').each((_, element) => {
+    const href = $(element).attr("href");
+    const linkedPath = resolveLocalStylesheet(htmlPath, root, href);
+
+    if (linkedPath) {
+      cssPaths.push(linkedPath);
+    }
+  });
+
+  return filterExistingFiles([...new Set(cssPaths)]);
+}
+
+/**
+ * Resolves a stylesheet href only when it is a local CSS file inside `root`.
+ */
+function resolveLocalStylesheet(htmlPath, root, href) {
+  if (!href || href.startsWith("http://") || href.startsWith("https://") || href.startsWith("//")) {
+    return undefined;
+  }
+
+  const hrefPath = href.split(/[?#]/, 1)[0];
+  if (!hrefPath || path.isAbsolute(hrefPath) || path.extname(hrefPath).toLowerCase() !== ".css") {
+    return undefined;
+  }
+
+  const linkedPath = path.resolve(path.dirname(htmlPath), hrefPath);
+  const relativePath = path.relative(root, linkedPath);
+
+  if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+    return undefined;
+  }
+
+  return linkedPath;
+}
+
+/**
+ * Keeps only stylesheet links that exist on disk.
+ */
+async function filterExistingFiles(files) {
+  const existingFiles = [];
+
+  for (const file of files) {
+    try {
+      const stat = await fs.stat(file);
+      if (stat.isFile()) {
+        existingFiles.push(file);
+      }
+    } catch {
+      // Missing linked stylesheets are ignored here; the copied HTML will still
+      // produce a warning during style extraction if a link cannot be read.
+    }
+  }
+
+  return existingFiles;
 }
 
 /**
@@ -145,7 +212,8 @@ export async function copyReferenceArtifacts(reference, referenceDir) {
   await fs.mkdir(referenceDir, { recursive: true });
 
   for (const sourcePath of reference.files) {
-    const targetPath = path.join(referenceDir, path.basename(sourcePath));
+    const targetPath = path.join(referenceDir, safeRelativePath(reference.root, sourcePath));
+    await fs.mkdir(path.dirname(targetPath), { recursive: true });
     await fs.copyFile(sourcePath, targetPath);
     copied.files.push(targetPath);
 
@@ -163,4 +231,17 @@ export async function copyReferenceArtifacts(reference, referenceDir) {
   }
 
   return copied;
+}
+
+/**
+ * Preserves source-relative paths without allowing writes outside referenceDir.
+ */
+function safeRelativePath(root, sourcePath) {
+  const relativePath = path.relative(root ?? path.dirname(sourcePath), sourcePath);
+
+  if (!relativePath || relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+    throw new Error(`Reference artifact is outside the reference root: ${sourcePath}`);
+  }
+
+  return relativePath;
 }
