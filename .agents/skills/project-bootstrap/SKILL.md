@@ -138,7 +138,7 @@ The ExecPlan must be self-contained and must not assume the reader remembers the
 - package/tooling commands already installed and commands still to run
 - validation and acceptance criteria
 - required control-document updates
-- visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation, including explicit `Progress` and `Concrete Steps` entries for baseline screenshots before implementation and matching screenshots after implementation
+- visual evidence requirements when the planned work can affect browser, Electron, rendered documentation, or frontend presentation, including explicit `Progress` and `Concrete Steps` entries for baseline screenshots before implementation, matching screenshots after implementation, and screenshot UX review using `.agents/skills/review-ui-screenshots/SKILL.md`
 - a final code-file line-count review when the planned work adds or changes code, applying the 600-line preference from `CODESTYLE.md` and requiring user approval before any unplanned split, refactor, or library addition
 - open questions and deferred decisions
 
@@ -154,7 +154,7 @@ git diff --check
 git status --short
 ```
 
-Also run any build, test, lint, format, or framework health command introduced during bootstrap. If a browser or Electron target now exists and the bootstrap changed rendered output, use the repo-local `agent-browser` skill for screenshot evidence and apply the visual review pass in `DESIGN.md`.
+Also run any build, test, lint, format, or framework health command introduced during bootstrap. If a browser or Electron target now exists and the bootstrap changed rendered output, use the repo-local `agent-browser` skill for screenshot evidence, then use `.agents/skills/review-ui-screenshots/SKILL.md` to inspect the captured evidence as part of the visual review pass in `DESIGN.md`.
 
 End with:
 

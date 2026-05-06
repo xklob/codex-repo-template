@@ -160,11 +160,16 @@ designer or frontend lead would send back for revision.
 The review must inspect screenshots or recordings captured after
 implementation, and it should compare them to before evidence when the ExecPlan
 changed an existing surface. The ExecPlan should make visual evidence capture
-explicit by listing baseline screenshot capture before implementation and
-matching after-implementation screenshot capture before final acceptance as
-separate execution steps. Cover desktop and mobile viewports, plus tablet or
-narrow-desktop widths when layout behavior changes at intermediate sizes. Look
-for interaction and presentation issues including:
+explicit by listing baseline screenshot capture before implementation,
+matching after-implementation screenshot capture, and a screenshot UX review
+using `.agents/skills/review-ui-screenshots/SKILL.md` before final acceptance
+as separate execution steps. Cover desktop and mobile viewports, plus tablet or
+narrow-desktop widths when layout behavior changes at intermediate sizes.
+Inspect each screenshot section by section rather than judging the whole image
+at a glance: headers, navigation, sidebars, dense panels, forms, buttons,
+modals, tables, cards, canvas HUDs, selected-object menus, and footer regions
+all need local attention. Look for interaction and presentation issues
+including:
 
 - unclear primary actions or weak visual hierarchy
 - cramped, drifting, or inconsistent spacing
@@ -180,9 +185,10 @@ for interaction and presentation issues including:
 Make in-scope corrections immediately. If a remaining issue needs a product,
 design, or technical decision outside the current ExecPlan, document it in the
 ExecPlan's `Outcomes & Retrospective` section with the evidence path and the
-reason it was deferred. If no runnable visual target exists, state that the
-professional UI/UX pass is not applicable and explain what validation replaced
-it.
+reason it was deferred. The final review note should name the evidence paths,
+viewports, interaction states, findings, fixes, and deferred concerns. If no
+runnable visual target exists, state that the professional UI/UX pass is not
+applicable and explain what validation replaced it.
 
 ## 8. Prompting Notes
 
