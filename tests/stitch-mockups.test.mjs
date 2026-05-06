@@ -14,7 +14,7 @@ import { parseArgs, resolveWorkflowPaths } from "../scripts/stitch-mockups/args.
 import { buildStitchPrompt } from "../scripts/stitch-mockups/prompt.mjs";
 import { copyReferenceArtifacts, detectReference } from "../scripts/stitch-mockups/reference.mjs";
 import { extractReferenceStyle, writeReferenceStyle } from "../scripts/stitch-mockups/style.mjs";
-import { runCli } from "../scripts/stitch-mockups/workflow.mjs";
+import { runCli, writeIndexFiles } from "../scripts/stitch-mockups/workflow.mjs";
 
 test("parseArgs validates required options and default values", () => {
   const options = parseArgs([
@@ -172,6 +172,38 @@ test("resolveWorkflowPaths keeps artifacts inside the plan folder", () => {
 
   assert.equal(paths.mockupsDir, "/repo/plans/00-settings-ui/mockups");
   assert.equal(paths.referenceDir, "/repo/plans/00-settings-ui/mockups/reference");
+  assert.equal(paths.htmlIndexPath, "/repo/plans/00-settings-ui/mockups/index.html");
+});
+
+test("writeIndexFiles creates browser preview and markdown indexes", async () => {
+  const tempDir = await makeTempDir();
+  const paths = {
+    indexPath: path.join(tempDir, "index.md"),
+    htmlIndexPath: path.join(tempDir, "index.html"),
+  };
+  const generatedOptions = [
+    {
+      optionSlug: "option-01",
+      imagePath: path.join(tempDir, "option-01.png"),
+      htmlPath: path.join(tempDir, "option-01.html"),
+      notesPath: path.join(tempDir, "option-01-notes.md"),
+    },
+    {
+      optionSlug: "option-02",
+      imagePath: path.join(tempDir, "option-02.png"),
+      notesPath: path.join(tempDir, "option-02-notes.md"),
+    },
+  ];
+
+  await writeIndexFiles(paths, { plan: "00-settings-ui", device: "DESKTOP" }, { kind: "none" }, generatedOptions);
+  const markdown = await fs.readFile(paths.indexPath, "utf8");
+  const html = await fs.readFile(paths.htmlIndexPath, "utf8");
+
+  assert.match(markdown, /Open `index.html`/);
+  assert.match(html, /<title>00-settings-ui UI Mockups<\/title>/);
+  assert.match(html, /<img src="option-01\.png"/);
+  assert.match(html, /href="option-01\.html"/);
+  assert.match(html, /HTML unavailable/);
 });
 
 /**

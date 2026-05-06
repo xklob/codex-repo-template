@@ -196,7 +196,9 @@ For substantial UI additions, UI refactors, major responsive/layout changes, or
 new design directions, use `.agents/skills/ui-mockups/SKILL.md` during planning
 before implementation begins. This workflow creates several Google
 Stitch-backed mockup options under `plans/<plan-stem>/mockups/` so the user can
-choose a direction before UI code is written.
+choose a direction before UI code is written. Open the generated
+`index.html` preview page from the command's printed `file://` link to compare
+the options in a browser before presenting a recommendation.
 
 When a supplied sample is available, treat it as a style reference by default.
 The sample may be a local image or a local Google Stitch export bundle with PNG

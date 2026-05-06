@@ -8,7 +8,7 @@ Create new ExecPlan files under `plans/` with a two-digit ordering prefix and a 
 
 When creating an ExecPlan that can affect frontend presentation, include explicit plan steps for taking baseline screenshots before implementation, matching after screenshots after implementation, and reviewing the captured evidence with `.agents/skills/review-ui-screenshots/SKILL.md`. Put those steps in the plan's `Progress` checklist and `Concrete Steps` section, and name the `plans/<name-of-plan>/screenshots/` paths the work will produce. If screenshots are not applicable because there is no runnable visual target, the plan should say that directly and name the replacement validation.
 
-For substantial UI additions, UI refactors, major responsive/layout changes, or design-direction choices, use `.agents/skills/ui-mockups/SKILL.md` during planning before UI implementation begins. Save generated mockup options under `plans/<name-of-plan>/mockups/`, present the options to the user, and record the selected or hybrid direction in the ExecPlan before editing UI code. Do not use this workflow for small visual fixes, copy tweaks, or already-approved designs.
+For substantial UI additions, UI refactors, major responsive/layout changes, or design-direction choices, use `.agents/skills/ui-mockups/SKILL.md` during planning before UI implementation begins. Save generated mockup options under `plans/<name-of-plan>/mockups/`, use the generated `index.html` browser preview to compare the options, present the options to the user, and record the selected or hybrid direction in the ExecPlan before editing UI code. Do not use this workflow for small visual fixes, copy tweaks, or already-approved designs.
 
 When creating an ExecPlan that adds or changes code, include a final `Progress` and `Concrete Steps` item to check line counts for hand-written code files. Use the `CODESTYLE.md` preference that code files stay below 600 lines. If any file exceeds that preference, list the file and line count, recommend a concrete response such as a refactor, code split, fixture move, helper extraction, library addition, or documented exception, and ask the user to approve that extra work before implementing it unless the accepted plan already included it.
 
@@ -36,7 +36,7 @@ Apply the same visual-review workflow to backend changes when they can affect fr
 
 ## UI Mockups and Stitch
 
-Use the repo-local `ui-mockups` skill when planning meaningful UI work that needs design options before implementation. Load `.agents/skills/ui-mockups/SKILL.md`, read the active ExecPlan and `DESIGN.md`, prepare a feature prompt, and run `npm run stitch:mockups` when Google Stitch credentials are available. The command writes options to `plans/<name-of-plan>/mockups/` and accepts local reference images or Google Stitch export bundles. Reference samples guide style by default; they should not control layout or content unless the user explicitly asks for that.
+Use the repo-local `ui-mockups` skill when planning meaningful UI work that needs design options before implementation. Load `.agents/skills/ui-mockups/SKILL.md`, read the active ExecPlan and `DESIGN.md`, prepare a feature prompt, and run `npm run stitch:mockups` when Google Stitch credentials are available. The command writes options to `plans/<name-of-plan>/mockups/`, creates `index.html` as a browser preview page, prints a clickable `file://` link to that page, and accepts local reference images or Google Stitch export bundles. Reference samples guide style by default; they should not control layout or content unless the user explicitly asks for that.
 
 Before copying a supplied sample into the repository, confirm it contains no secrets or restricted third-party material. If `STITCH_API_KEY` or the OAuth variables from `.env.example` are unavailable, explain that live Stitch generation was not run instead of inventing mockup artifacts.
 
@@ -87,7 +87,7 @@ There is no checked-in application build or test toolchain yet. The existing npm
 - `scripts/win-screenshot [output.png]` captures the full Windows desktop from Windows 11 with WSL when host-desktop visual evidence is needed.
 - `npm test` runs the current contributor-tooling tests.
 - `npm audit --omit=dev` checks installed contributor-tooling dependencies for known advisories.
-- `npm run stitch:mockups -- --plan <plan-stem> --prompt-file <prompt.md> --reference <sample-path> --variants 4 --device DESKTOP` generates Google Stitch UI mockup options for substantial UI work when Stitch credentials are configured.
+- `npm run stitch:mockups -- --plan <plan-stem> --prompt-file <prompt.md> --reference <sample-path> --variants 4 --device DESKTOP` generates Google Stitch UI mockup options and a clickable browser preview link for substantial UI work when Stitch credentials are configured.
 
 If you introduce a language toolchain, add its canonical commands to this section in the same change. Prefer a single documented entry point such as `make test`, `npm test`, or `pytest`.
 
