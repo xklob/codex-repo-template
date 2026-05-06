@@ -1,4 +1,4 @@
-# Agent-Forward Project Template
+# Codex Repo Template
 
 This repository is a starting point for agentic-forward software projects: projects that expect coding agents to participate in design, implementation, review, and maintenance from the beginning.
 
